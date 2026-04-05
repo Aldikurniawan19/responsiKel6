@@ -1,9 +1,86 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../auth/screens/login_screen.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingContent {
+  final String titleLight;
+  final String titleDark;
+  final String descLight;
+  final String descDark;
+
+  OnboardingContent({
+    required this.titleLight,
+    required this.titleDark,
+    required this.descLight,
+    required this.descDark,
+  });
+}
+
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPage = 0;
+  Timer? _timer;
+
+  final List<OnboardingContent> _contents = [
+    OnboardingContent(
+      titleLight: 'Enter the World of Online\nShopping',
+      titleDark: 'Start Your Shopping Journey Now',
+      descLight:
+          'Explore curated collections, exclusive deals, and seasonal specials to make your shopping experience truly unforgettable.',
+      descDark:
+          'Start exploring now and let your shopping desires take flight. Find the perfect items that resonate with your style and needs.',
+    ),
+    OnboardingContent(
+      titleLight: 'Discover New Trends',
+      titleDark: 'Explore Fashion Now',
+      descLight:
+          'Find the latest and greatest trends in the fashion world tailored just for you.',
+      descDark: 'Dive into a world of exclusive styles and modern aesthetics.',
+    ),
+    OnboardingContent(
+      titleLight: 'Fast & Secure Delivery',
+      titleDark: 'Reliable Shipping',
+      descLight:
+          'Get your items delivered quickly and securely right to your doorstep.',
+      descDark:
+          'Experience seamless logistics and track your orders in real-time.',
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentPage < _contents.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +90,11 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 1. Background Grid Images
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             height: MediaQuery.of(context).size.height * 0.65,
-            // Untuk sementara saya menggunakan placeholder Container,
-            // nanti Anda bisa ganti dengan GridView berisi Image.asset atau network
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -38,13 +112,15 @@ class OnboardingScreen extends StatelessWidget {
             left: 0,
             right: 0,
             height: MediaQuery.of(context).size.height * 0.66,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: const [0.5, 1.0],
-                  colors: [Colors.transparent, backgroundColor],
+            child: IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.5, 1.0],
+                    colors: [Colors.transparent, backgroundColor],
+                  ),
                 ),
               ),
             ),
@@ -62,40 +138,62 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    isDarkMode
-                        ? 'Start Your Shopping Journey Now'
-                        : 'Enter the World of Online\nShopping',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.headlineSmall?.copyWith(fontSize: 22),
+                  SizedBox(
+                    height: 140,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemCount: _contents.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              isDarkMode
+                                  ? _contents[index].titleDark
+                                  : _contents[index].titleLight,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.headlineSmall?.copyWith(fontSize: 22),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              isDarkMode
+                                  ? _contents[index].descDark
+                                  : _contents[index].descLight,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium?.copyWith(fontSize: 14),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    isDarkMode
-                        ? 'Start exploring now and let your shopping desires take flight. Find the perfect items that resonate with your style and needs.'
-                        : 'Explore curated collections, exclusive deals, and seasonal specials to make your shopping experience truly unforgettable.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(fontSize: 14),
-                  ),
-                  const SizedBox(height: 32),
+
+                  const SizedBox(height: 24),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildDot(isDarkMode, isActive: false),
-                      const SizedBox(width: 8),
-                      _buildDot(isDarkMode, isActive: true),
-                      const SizedBox(width: 8),
-                      _buildDot(isDarkMode, isActive: false),
-                    ],
+                    children: List.generate(
+                      _contents.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: _buildDot(
+                          isDarkMode,
+                          isActive: index == _currentPage,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 32),
 
-                  // Get Started Button
                   SizedBox(
                     width: double.infinity,
                     height: 54,
@@ -134,9 +232,9 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  // Widget Helper untuk membuat titik indikator
   Widget _buildDot(bool isDark, {required bool isActive}) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       width: 8,
       height: 8,
       decoration: BoxDecoration(
