@@ -172,7 +172,7 @@ class AppDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'W3Cart Fashion Store',
+                    'HotDiee Fashion Store',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

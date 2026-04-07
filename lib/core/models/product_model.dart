@@ -9,7 +9,7 @@ class Product {
   final bool isWishlist;
   final double? rating;
   final int? reviewCount;
-
+  final String? brand;
   final List<String> thumbnailImages; // Daftar gambar thumbnail
   final List<String> sizes; // Daftar ukuran: ['S', 'M', 'L', 'XL']
   final List<int> colors; // Daftar warna (ARGB int): [0xFF000000, ...]
@@ -26,6 +26,7 @@ class Product {
     required this.sizes,
     required this.colors,
     required this.description,
+    this.brand,
     required this.isSale,
     required this.isWishlist,
     this.rating,

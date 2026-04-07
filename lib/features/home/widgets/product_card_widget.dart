@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
-// --- IMPORT MODEL GLOBAL BARU ---
 import '../../../core/models/product_model.dart';
-// --- IMPORT HALAMAN DETAIL ---
 import '../screens/product_detail_screen.dart';
 
-class ProductCardWidget extends StatelessWidget {
+// --- 1. UBAH MENJADI STATEFUL WIDGET ---
+class ProductCardWidget extends StatefulWidget {
   final Product product;
   final bool isDark;
 
@@ -16,24 +15,38 @@ class ProductCardWidget extends StatelessWidget {
   });
 
   @override
+  State<ProductCardWidget> createState() => _ProductCardWidgetState();
+}
+
+class _ProductCardWidgetState extends State<ProductCardWidget> {
+  // Variabel state lokal untuk melacak status wishlist kartu ini
+  late bool _isWishlist;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set status awal berdasarkan data produk dari database/mock data
+    _isWishlist = widget.product.isWishlist;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // --- GESTURE DETECTOR UNTUK KLIK KE DETAIL PRODUK ---
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailScreen(product: product),
+            builder: (context) => ProductDetailScreen(product: widget.product),
           ),
         );
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isDark
+          color: widget.isDark
               ? AppColors.darkCardBackground
               : AppColors.lightCardBackground,
           borderRadius: BorderRadius.circular(4),
-          boxShadow: isDark
+          boxShadow: widget.isDark
               ? []
               : [
                   BoxShadow(
@@ -46,7 +59,6 @@ class ProductCardWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- 1. AREA GAMBAR & LENCANA ---
             AspectRatio(
               aspectRatio: 1 / 1,
               child: ClipRRect(
@@ -57,13 +69,12 @@ class ProductCardWidget extends StatelessWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      product.imageUrl,
+                      widget.product.imageUrl,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
 
-                    // Lencana Sale/Diskon (Hanya muncul jika teksnya ada)
-                    if (product.badgeText.isNotEmpty)
+                    if (widget.product.badgeText.isNotEmpty)
                       Positioned(
                         top: 10,
                         left: 10,
@@ -73,13 +84,13 @@ class ProductCardWidget extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: product.isSale
+                            color: widget.product.isSale
                                 ? AppColors.primary
                                 : Colors.black,
                             borderRadius: BorderRadius.circular(2),
                           ),
                           child: Text(
-                            product.badgeText,
+                            widget.product.badgeText,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 10,
@@ -89,22 +100,54 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                       ),
 
-                    // Tombol Wishlist
+                    // --- 2. TOMBOL WISHLIST YANG SUDAH BERFUNGSI ---
                     Positioned(
                       top: 10,
                       right: 10,
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          product.isWishlist
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: product.isWishlist ? Colors.red : Colors.green,
-                          size: 18,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Ubah state _isWishlist saat tombol diklik
+                          setState(() {
+                            _isWishlist = !_isWishlist;
+                          });
+
+                          // Munculkan notifikasi pop-up kecil
+                          ScaffoldMessenger.of(
+                            context,
+                          ).clearSnackBars(); // Bersihkan snackbar sebelumnya agar tidak menumpuk
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                _isWishlist
+                                    ? 'Added to Wishlist!'
+                                    : 'Removed from Wishlist',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: const Duration(
+                                seconds: 1,
+                              ), // Tampil sangat cepat
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            // Ubah ikon berdasarkan state _isWishlist
+                            _isWishlist
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: _isWishlist ? Colors.red : Colors.green,
+                            size: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -113,7 +156,6 @@ class ProductCardWidget extends StatelessWidget {
               ),
             ),
 
-            // --- 2. AREA DETAIL TEKS ---
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -122,9 +164,9 @@ class ProductCardWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      product.category,
+                      widget.product.category,
                       style: TextStyle(
-                        color: isDark
+                        color: widget.isDark
                             ? AppColors.darkTextBody
                             : AppColors.lightTextBody,
                         fontSize: 11,
@@ -132,11 +174,11 @@ class ProductCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      product.title,
+                      widget.product.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: isDark ? Colors.white : Colors.black,
+                        color: widget.isDark ? Colors.white : Colors.black,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                         height: 1.3,
@@ -145,11 +187,10 @@ class ProductCardWidget extends StatelessWidget {
 
                     const Spacer(),
 
-                    // Harga
                     Row(
                       children: [
                         Text(
-                          '\$${product.currentPrice.toStringAsFixed(2)}',
+                          '\$${widget.product.currentPrice.toStringAsFixed(2)}',
                           style: const TextStyle(
                             color: AppColors.primary,
                             fontSize: 14,
@@ -158,9 +199,9 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '\$${product.oldPrice.toStringAsFixed(2)}',
+                          '\$${widget.product.oldPrice.toStringAsFixed(2)}',
                           style: TextStyle(
-                            color: isDark
+                            color: widget.isDark
                                 ? AppColors.darkOldPriceText
                                 : AppColors.lightOldPriceText,
                             fontSize: 12,

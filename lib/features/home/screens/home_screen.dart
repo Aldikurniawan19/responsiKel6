@@ -6,6 +6,8 @@ import '../widgets/category_tabs_widget.dart';
 import '../widgets/product_card_widget.dart';
 import '../widgets/trending_carousel_widget.dart';
 import '../widgets/app_drawer.dart';
+import '../../search/screens/search_screen.dart';
+import '../../categories/screens/categories_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -190,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(width: 8),
             Text(
-              'W3Cart',
+              'HotDiee',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -206,7 +208,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.search,
               color: isDark ? Colors.white : Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchScreen()),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
@@ -380,9 +387,16 @@ class _HomeScreenState extends State<HomeScreen> {
     bool isActive = _currentIndex == index;
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _currentIndex = index;
-        });
+        if (index == 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const CategoriesScreen()),
+          );
+        } else {
+          setState(() {
+            _currentIndex = index;
+          });
+        }
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -411,7 +425,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// --- BENTUK HEKSAGON UNTUK TOMBOL KERANJANG ---
 class ShapeHexagon extends OutlinedBorder {
   const ShapeHexagon({super.side});
 
