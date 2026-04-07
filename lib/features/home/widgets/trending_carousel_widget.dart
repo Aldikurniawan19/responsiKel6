@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../models/product_model.dart';
+import '../../../core/models/product_model.dart';
 import 'trending_card_widget.dart';
 
 class TrendingCarouselWidget extends StatefulWidget {

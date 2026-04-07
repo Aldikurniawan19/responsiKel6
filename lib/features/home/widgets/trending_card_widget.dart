@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
-import '../models/product_model.dart';
+import '../../../core/models/product_model.dart';
 
 class TrendingCardWidget extends StatelessWidget {
   final Product product;
