@@ -1,72 +1,98 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
-import '../models/category_model.dart';
-import '../widgets/category_card_widget.dart';
+import '../../../core/models/product_model.dart';
+import '../../home/widgets/product_card_widget.dart';
 import '../../home/screens/home_screen.dart';
-import '../../search/screens/search_screen.dart';
-import '../../products/screens/products_screen.dart';
-import '../../wishlist/screens/wishlist_screen.dart';
+import '../../categories/screens/categories_screen.dart';
 import '../../profile/screens/profile_screen.dart';
 
-class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+class WishlistScreen extends StatefulWidget {
+  const WishlistScreen({super.key});
 
   @override
-  State<CategoriesScreen> createState() => _CategoriesScreenState();
+  State<WishlistScreen> createState() => _WishlistScreenState();
 }
 
-class _CategoriesScreenState extends State<CategoriesScreen> {
-  int _currentIndex = 1;
+class _WishlistScreenState extends State<WishlistScreen> {
+  int _currentIndex = 2;
 
-  final List<CategoryModel> _categories = [
-    CategoryModel(
-      title: 'Men T-shirt',
-      itemCount: 240,
-      backgroundColorValue: 0xFFE6CDB8,
+  // --- DATA MOCK PRODUK WISHLIST ---
+  final List<Product> _wishlistProducts = [
+    Product(
       imageUrl:
-          'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=400',
+          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      category: 'T-Shirt',
+      title: 'Men Black Grey Allover Printed Round Neck...',
+      oldPrice: 30.15,
+      currentPrice: 25.15,
+      badgeText: '32% off',
+      isSale: false,
+      isWishlist: true,
+      thumbnailImages: [
+        'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      ],
+      rating: 4.5,
+      reviewCount: 2600,
+      sizes: ['S', 'M', 'L', 'XL'],
+      colors: [0xFF000000],
+      description: 'Casual printed t-shirt.',
     ),
-    CategoryModel(
-      title: 'Jackets',
-      itemCount: 140,
-      backgroundColorValue: 0xFFF1B7C1,
+    Product(
       imageUrl:
           'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      category: 'Jacket',
+      title: 'Men Black Denim Winter Jacket',
+      oldPrice: 25.13,
+      currentPrice: 18.50,
+      badgeText: 'SALE',
+      isSale: true,
+      isWishlist: true,
+      thumbnailImages: [
+        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      ],
+      rating: 4.8,
+      reviewCount: 1200,
+      sizes: ['M', 'L', 'XL'],
+      colors: [0xFF000000, 0xFF808080],
+      description: 'Premium quality denim jacket designed for winter wear.',
     ),
-    CategoryModel(
-      title: 'Shoes',
-      itemCount: 104,
-      backgroundColorValue: 0xFFF0F2F1,
+    Product(
       imageUrl:
-          'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=400',
+          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      category: 'Jacket',
+      title: 'Women Pink Leather Biker Jacket',
+      oldPrice: 40.55,
+      currentPrice: 20.15,
+      badgeText: '32% off',
+      isSale: false,
+      isWishlist: true,
+      thumbnailImages: [
+        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      ],
+      rating: 4.7,
+      reviewCount: 3400,
+      sizes: ['S', 'M', 'L'],
+      colors: [0xFFFFC0CB, 0xFF000000],
+      description: 'Stylish pink leather biker jacket.',
     ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
+    Product(
       imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
-    ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
-    ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
-    ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
+          'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+      category: 'Jacket',
+      title: 'Peter Longline Pure Cotton Jacket',
+      oldPrice: 30.15,
+      currentPrice: 25.15,
+      badgeText: '32% off',
+      isSale: false,
+      isWishlist: true,
+      thumbnailImages: [
+        'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+      ],
+      rating: 4.5,
+      reviewCount: 265,
+      sizes: ['M', 'L', 'XL'],
+      colors: [0xFF000000],
+      description: 'High quality pure cotton jacket.',
     ),
   ];
 
@@ -89,7 +115,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'All Categories',
+          'Wishlist',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -97,54 +123,27 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
         ),
         centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: isDark ? Colors.white : Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SearchScreen()),
-              );
-            },
-          ),
-          const SizedBox(width: 8),
-        ],
       ),
 
-      // --- BODY ---
-      body: ListView.builder(
+      // --- BODY (GRID PRODUK) ---
+      body: GridView.builder(
         padding: const EdgeInsets.all(24.0),
-        itemCount: _categories.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.58,
+        ),
+        itemCount: _wishlistProducts.length,
         itemBuilder: (context, index) {
-          return CategoryCardWidget(
-            category: _categories[index],
-            onShopNowTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductsScreen(categoryTitle: _categories[index].title),
-                ),
-              );
-
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Menuju halaman koleksi ${_categories[index].title}...',
-                  ),
-                  backgroundColor: AppColors.primary,
-                  duration: const Duration(seconds: 1),
-                ),
-              );
-            },
+          return ProductCardWidget(
+            product: _wishlistProducts[index],
+            isDark: isDark,
           );
         },
       ),
 
+      // --- BOTTOM NAVIGATION BAR ---
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

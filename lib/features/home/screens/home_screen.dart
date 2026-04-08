@@ -8,6 +8,8 @@ import '../widgets/trending_carousel_widget.dart';
 import '../widgets/app_drawer.dart';
 import '../../search/screens/search_screen.dart';
 import '../../categories/screens/categories_screen.dart';
+import '../../wishlist/screens/wishlist_screen.dart';
+import '../../profile/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -327,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        backgroundColor: Colors.black,
+        backgroundColor: isDark ? AppColors.primary : Colors.black,
         elevation: 10,
         shape: const ShapeHexagon(),
         child: const Icon(
@@ -339,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
-        color: isDark ? AppColors.darkBackground : Colors.white,
+        color: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 20,
         child: SizedBox(
           height: 70,
@@ -387,15 +389,27 @@ class _HomeScreenState extends State<HomeScreen> {
     bool isActive = _currentIndex == index;
     return GestureDetector(
       onTap: () {
-        if (index == 1) {
+        if (index == 0 && _currentIndex != 0) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        } else if (index == 1 && _currentIndex != 1) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const CategoriesScreen()),
           );
-        } else {
-          setState(() {
-            _currentIndex = index;
-          });
+        } else if (index == 2 && _currentIndex != 2) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const WishlistScreen()),
+          );
+        } else if (index == 3 && _currentIndex != 3) {
+          // --- TAMBAHAN NAVIGASI KE PROFILE ---
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
+          );
         }
       },
       child: Column(
