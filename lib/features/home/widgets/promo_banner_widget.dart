@@ -35,7 +35,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
 
   final List<BannerContent> _banners = [
     BannerContent(
-      imageUrl: 'assets/images/8.jpeg',
+      imageUrl: 'assets/images/4.jpeg',
       tag: '#WINTER SALE',
       offer: '35% Off',
       description: 'Discover our latest Products',
@@ -48,7 +48,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       imageOnRight: true, // Gambar di kanan untuk slide kedua
     ),
     BannerContent(
-      imageUrl: 'assets/images/7.jpeg',
+      imageUrl: 'assets/images/3.jpg',
       tag: '#FLASH SALE',
       offer: '10% Off',
       description: 'Hurry Up! Limited Stock',
@@ -174,11 +174,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
         padding: const EdgeInsets.all(16.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            content.imageUrl,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
+          child: Image.asset(content.imageUrl, height: 200, fit: BoxFit.cover),
         ),
       ),
     );
@@ -218,7 +214,9 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             const SizedBox(height: 6),
             Text(
               content.description,
-              textAlign: content.imageOnRight ? TextAlign.left : TextAlign.right,
+              textAlign: content.imageOnRight
+                  ? TextAlign.left
+                  : TextAlign.right,
               style: TextStyle(
                 color: isDark
                     ? AppColors.darkTextBody

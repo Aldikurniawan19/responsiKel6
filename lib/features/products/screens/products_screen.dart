@@ -193,6 +193,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final activeFilterCount = (_selectedBrands.isNotEmpty ? 1 : 0) +
+        (_selectedDiscount.isNotEmpty ? 1 : 0) +
+        (_selectedSort != 'Recommended' ? 1 : 0);
 
     return Scaffold(
       appBar: AppBar(
@@ -207,22 +210,35 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          widget.categoryTitle,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: isDark ? Colors.white : Colors.black,
-          ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.categoryTitle,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ),
+            Text(
+              '${_catalogProducts.length} Products Found',
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark ? AppColors.darkTextBody : AppColors.lightTextBody,
+              ),
+            ),
+          ],
         ),
         centerTitle: false,
       ),
       body: Column(
         children: [
-          // --- HORIZONTAL FILTER BAR ---
+          // --- FILTER BAR ---
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             decoration: BoxDecoration(
+              color: isDark ? AppColors.darkCardBackground : Colors.white,
               border: Border(
                 bottom: BorderSide(
                   color: isDark
@@ -236,32 +252,29 @@ class _ProductsScreenState extends State<ProductsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  _buildFilterChip(
-                    'Sort By',
-                    Icons.tune,
+                  _buildIconChip(Icons.tune, isDark,
+                    badge: activeFilterCount > 0 ? activeFilterCount : null,
+                    onTap: () => _showFilterBottomSheet(isDark),
+                  ),
+                  const SizedBox(width: 8),
+                  _buildChip(
+                    _selectedSort == 'Recommended' ? 'Sort By' : _selectedSort,
                     isDark,
-                    isGreenIcon: true,
+                    isActive: _selectedSort != 'Recommended',
                     hasDropdown: true,
                     onTap: () => _showSortBottomSheet(isDark),
                   ),
-                  _buildFilterChip(
-                    'Filter',
-                    Icons.filter_alt_outlined,
+                  _buildChip(
+                    _selectedBrands.isEmpty ? 'Brand' : '${_selectedBrands.length} Brand',
                     isDark,
-                    isGreenIcon: true,
-                    onTap: () => _showFilterBottomSheet(isDark),
-                  ),
-                  _buildFilterChip(
-                    'Brand',
-                    null,
-                    isDark,
+                    isActive: _selectedBrands.isNotEmpty,
                     hasDropdown: true,
                     onTap: () => _showBrandBottomSheet(isDark),
                   ),
-                  _buildFilterChip(
-                    'Discount',
-                    null,
+                  _buildChip(
+                    _selectedDiscount.isEmpty ? 'Discount' : _selectedDiscount,
                     isDark,
+                    isActive: _selectedDiscount.isNotEmpty,
                     hasDropdown: true,
                     onTap: () => _showDiscountBottomSheet(isDark),
                   ),
@@ -294,58 +307,65 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // --- WIDGET HELPER CHIP
-  Widget _buildFilterChip(
+  // --- ICON CHIP ---
+  Widget _buildIconChip(IconData icon, bool isDark, {int? badge, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: badge != null ? AppColors.primary.withOpacity(0.1) : (isDark ? AppColors.darkInputBackground : AppColors.lightInputBackground),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: badge != null ? AppColors.primary : (isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder)),
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Icon(icon, size: 20, color: AppColors.primary),
+            if (badge != null)
+              Positioned(
+                top: -8, right: -8,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle),
+                  child: Text('$badge', style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- FILTER CHIP ---
+  Widget _buildChip(
     String label,
-    IconData? icon,
     bool isDark, {
-    bool isGreenIcon = false,
+    bool isActive = false,
     bool hasDropdown = false,
     VoidCallback? onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(right: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
-          color: isDark
-              ? AppColors.darkInputBackground
-              : AppColors.lightInputBackground,
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: isDark
-                ? AppColors.darkInputBorder
-                : AppColors.lightInputBorder,
-          ),
+          color: isActive ? AppColors.primary.withOpacity(0.1) : (isDark ? AppColors.darkInputBackground : AppColors.lightInputBackground),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: isActive ? AppColors.primary : (isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder)),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            if (icon != null) ...[
-              Icon(
-                icon,
-                size: 16,
-                color: isGreenIcon
-                    ? AppColors.primary
-                    : (isDark ? Colors.white70 : Colors.black87),
-              ),
-              const SizedBox(width: 6),
-            ],
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                color: isDark ? Colors.white : Colors.black87,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text(label, style: TextStyle(
+              fontSize: 13,
+              color: isActive ? AppColors.primary : (isDark ? Colors.white : Colors.black87),
+              fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+            )),
             if (hasDropdown) ...[
               const SizedBox(width: 4),
-              Icon(
-                Icons.keyboard_arrow_down,
-                size: 18,
-                color: isDark ? Colors.white70 : Colors.black54,
-              ),
+              Icon(Icons.keyboard_arrow_down, size: 18, color: isActive ? AppColors.primary : (isDark ? Colors.white70 : Colors.black54)),
             ],
           ],
         ),
@@ -353,304 +373,151 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // 1. Bottom Sheet: SORT BY
+  // 1. SORT BY
   void _showSortBottomSheet(bool isDark) {
     final sortOptions = [
-      'Recommended',
-      'Newest',
-      'Price: Low to High',
-      'Price: High to Low',
-      'Customer Rating',
+      {'label': 'Recommended', 'icon': Icons.recommend_outlined},
+      {'label': 'Newest', 'icon': Icons.new_releases_outlined},
+      {'label': 'Price: Low to High', 'icon': Icons.arrow_upward},
+      {'label': 'Price: High to Low', 'icon': Icons.arrow_downward},
+      {'label': 'Customer Rating', 'icon': Icons.star_outline},
     ];
-
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark
-          ? AppColors.darkBackground
-          : AppColors.lightBackground,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text(
-                      'Sort By',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ...sortOptions.map(
-                    (option) => RadioListTile<String>(
-                      title: Text(
-                        option,
-                        style: TextStyle(
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                      ),
-                      value: option,
-                      groupValue: _selectedSort,
-                      activeColor: AppColors.primary,
-                      onChanged: (value) {
-                        setModalState(() => _selectedSort = value!);
-                        setState(() => _selectedSort = value!);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+      backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.only(top: 12, bottom: 24),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder, borderRadius: BorderRadius.circular(2)))),
+          const SizedBox(height: 20),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 24), child: Text('Sort By', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black))),
+          const SizedBox(height: 8),
+          ...sortOptions.map((o) {
+            final l = o['label'] as String; final i = o['icon'] as IconData; final s = _selectedSort == l;
+            return ListTile(
+              leading: Icon(i, color: s ? AppColors.primary : (isDark ? Colors.white54 : Colors.black38), size: 22),
+              title: Text(l, style: TextStyle(color: s ? AppColors.primary : (isDark ? Colors.white : Colors.black), fontWeight: s ? FontWeight.w600 : FontWeight.normal)),
+              trailing: s ? const Icon(Icons.check_circle, color: AppColors.primary, size: 22) : null,
+              onTap: () { setState(() => _selectedSort = l); Navigator.pop(context); },
             );
-          },
-        );
-      },
+          }),
+        ]),
+      ),
     );
   }
 
-  // 2. Bottom Sheet: FILTER (Kompleks: Harga & Ukuran)
+  // 2. FILTER (Price & Size)
   void _showFilterBottomSheet(bool isDark) {
-    RangeValues currentRangeValues = const RangeValues(20, 150);
-
+    RangeValues range = const RangeValues(20, 150);
+    List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    List<String> sel = [];
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark
-          ? AppColors.darkBackground
-          : AppColors.lightBackground,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       isScrollControlled: true,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            return Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Filters',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Price Range',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: isDark ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  RangeSlider(
-                    values: currentRangeValues,
-                    min: 0,
-                    max: 300,
-                    activeColor: AppColors.primary,
-                    inactiveColor: isDark
-                        ? AppColors.darkInputBorder
-                        : AppColors.lightInputBorder,
-                    labels: RangeLabels(
-                      '\$${currentRangeValues.start.round()}',
-                      '\$${currentRangeValues.end.round()}',
-                    ),
-                    onChanged: (RangeValues values) {
-                      setModalState(() => currentRangeValues = values);
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'Apply Filters',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+      builder: (context) => StatefulBuilder(builder: (context, ss) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder, borderRadius: BorderRadius.circular(2)))),
+          const SizedBox(height: 20),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Filters', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+            TextButton(onPressed: () => ss(() { range = const RangeValues(0, 300); sel.clear(); }), child: const Text('Reset', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500))),
+          ]),
+          const SizedBox(height: 20),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Price Range', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+              child: Text('\$${range.start.round()} - \$${range.end.round()}', style: const TextStyle(color: AppColors.primary, fontSize: 13, fontWeight: FontWeight.w600))),
+          ]),
+          const SizedBox(height: 8),
+          RangeSlider(values: range, min: 0, max: 300, divisions: 30, activeColor: AppColors.primary, inactiveColor: isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder, onChanged: (v) => ss(() => range = v)),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('\$0', style: TextStyle(fontSize: 12, color: isDark ? AppColors.darkTextBody : AppColors.lightTextBody)),
+            Text('\$300', style: TextStyle(fontSize: 12, color: isDark ? AppColors.darkTextBody : AppColors.lightTextBody)),
+          ]),
+          const SizedBox(height: 24),
+          Text('Size', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black)),
+          const SizedBox(height: 12),
+          Wrap(spacing: 10, runSpacing: 10, children: sizes.map((s) {
+            final a = sel.contains(s);
+            return GestureDetector(onTap: () => ss(() { a ? sel.remove(s) : sel.add(s); }),
+              child: AnimatedContainer(duration: const Duration(milliseconds: 200), width: 50, height: 40, alignment: Alignment.center,
+                decoration: BoxDecoration(color: a ? AppColors.primary : (isDark ? AppColors.darkInputBackground : AppColors.lightInputBackground), borderRadius: BorderRadius.circular(8), border: Border.all(color: a ? AppColors.primary : (isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder))),
+                child: Text(s, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: a ? Colors.white : (isDark ? Colors.white : Colors.black87)))));
+          }).toList()),
+          const SizedBox(height: 28),
+          SizedBox(width: double.infinity, height: 50, child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), elevation: 0),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Apply Filters', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+          )),
+        ]),
+      )),
     );
   }
 
-  // 3. Bottom Sheet: BRAND (Checkboxes)
+  // 3. BRAND
   void _showBrandBottomSheet(bool isDark) {
-    final brands = [
-      'Peter England Casual',
-      'Zara Men',
-      'H&M',
-      'Levi\'s',
-      'Gucci',
-    ];
-
+    final brands = ['Peter England Casual', 'Zara Men', 'H&M', 'Levi\'s', 'Gucci'];
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark
-          ? AppColors.darkBackground
-          : AppColors.lightBackground,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text(
-                      'Select Brands',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ...brands.map(
-                    (brand) => CheckboxListTile(
-                      title: Text(
-                        brand,
-                        style: TextStyle(
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                      ),
-                      value: _selectedBrands.contains(brand),
-                      activeColor: AppColors.primary,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setModalState(() {
-                          if (value == true) {
-                            _selectedBrands.add(brand);
-                          } else {
-                            _selectedBrands.remove(brand);
-                          }
-                        });
-                        setState(() {});
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+      backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) => StatefulBuilder(builder: (context, ss) => Padding(
+        padding: const EdgeInsets.only(top: 12, bottom: 24),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder, borderRadius: BorderRadius.circular(2)))),
+          const SizedBox(height: 20),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 24), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Select Brands', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+            if (_selectedBrands.isNotEmpty) GestureDetector(onTap: () { ss(() => _selectedBrands.clear()); setState(() {}); },
+              child: Text('${_selectedBrands.length} selected', style: const TextStyle(color: AppColors.primary, fontSize: 13, fontWeight: FontWeight.w500))),
+          ])),
+          const SizedBox(height: 8),
+          ...brands.map((b) {
+            final a = _selectedBrands.contains(b);
+            return CheckboxListTile(title: Text(b, style: TextStyle(color: a ? AppColors.primary : (isDark ? Colors.white : Colors.black), fontWeight: a ? FontWeight.w600 : FontWeight.normal)),
+              value: a, activeColor: AppColors.primary, checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)), controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (v) { ss(() { v == true ? _selectedBrands.add(b) : _selectedBrands.remove(b); }); setState(() {}); });
+          }),
+        ]),
+      )),
     );
   }
 
-  // 4. Bottom Sheet: DISCOUNT (Radio)
+  // 4. DISCOUNT
   void _showDiscountBottomSheet(bool isDark) {
     final discounts = [
-      '10% and above',
-      '20% and above',
-      '30% and above',
-      '50% and above',
+      {'label': '10% and above', 'icon': Icons.local_offer_outlined},
+      {'label': '20% and above', 'icon': Icons.local_offer_outlined},
+      {'label': '30% and above', 'icon': Icons.local_offer_outlined},
+      {'label': '50% and above', 'icon': Icons.local_fire_department_outlined},
     ];
-
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark
-          ? AppColors.darkBackground
-          : AppColors.lightBackground,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text(
-                      'Discount',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ...discounts.map(
-                    (discount) => RadioListTile<String>(
-                      title: Text(
-                        discount,
-                        style: TextStyle(
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                      ),
-                      value: discount,
-                      groupValue: _selectedDiscount,
-                      activeColor: AppColors.primary,
-                      onChanged: (value) {
-                        setModalState(() => _selectedDiscount = value!);
-                        setState(() => _selectedSort = value!);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+      backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.only(top: 12, bottom: 24),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: isDark ? AppColors.darkInputBorder : AppColors.lightInputBorder, borderRadius: BorderRadius.circular(2)))),
+          const SizedBox(height: 20),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 24), child: Text('Discount', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black))),
+          const SizedBox(height: 8),
+          ...discounts.map((d) {
+            final l = d['label'] as String; final i = d['icon'] as IconData; final s = _selectedDiscount == l;
+            return ListTile(
+              leading: Icon(i, color: s ? AppColors.primary : (isDark ? Colors.white54 : Colors.black38), size: 22),
+              title: Text(l, style: TextStyle(color: s ? AppColors.primary : (isDark ? Colors.white : Colors.black), fontWeight: s ? FontWeight.w600 : FontWeight.normal)),
+              trailing: s ? const Icon(Icons.check_circle, color: AppColors.primary, size: 22) : null,
+              onTap: () { setState(() => _selectedDiscount = l); Navigator.pop(context); },
             );
-          },
-        );
-      },
+          }),
+        ]),
+      ),
     );
   }
 }
