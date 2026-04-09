@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(
           color: isDark ? Colors.white : Colors.black,
@@ -204,16 +204,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // --- BODY UTAMA ---
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 24, bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Banner Promo
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: PromoBannerWidget(isDark: isDark),
-            ),
-            const SizedBox(height: 30),
+            // Banner Promo (full width, tanpa padding)
+            PromoBannerWidget(isDark: isDark),
+            const SizedBox(height: 20),
 
             // Tabs Kategori
             Padding(

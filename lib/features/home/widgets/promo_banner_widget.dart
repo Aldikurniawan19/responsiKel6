@@ -86,16 +86,6 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       height: 200,
       decoration: BoxDecoration(
         color: widget.isDark ? AppColors.darkCardBackground : Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: widget.isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.03),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
       ),
       child: Stack(
         children: [
@@ -136,13 +126,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
   Widget _buildBannerSlide(BannerContent content, bool isDark) {
     return Row(
       children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-          ),
-          child: Image.asset(content.imageUrl, width: 140, fit: BoxFit.cover),
-        ),
+        Image.asset(content.imageUrl, width: 140, height: 200, fit: BoxFit.cover),
         const SizedBox(width: 15),
         Expanded(
           child: Padding(

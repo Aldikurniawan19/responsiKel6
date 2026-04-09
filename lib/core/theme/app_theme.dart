@@ -21,6 +21,10 @@ class AppTheme {
           height: 1.5,
         ),
       ),
+      appBarTheme: const AppBarTheme(
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+      ),
     );
   }
 
@@ -38,6 +42,10 @@ class AppTheme {
           color: AppColors.darkTextBody,
           height: 1.5,
         ),
+      ),
+      appBarTheme: const AppBarTheme(
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import 'register_screen.dart';
-import '../../home/screens/home_screen.dart';
+import '../../../screens/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -72,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) => MainScreen(key: MainScreen.mainKey),
                       ),
                     );
                   },

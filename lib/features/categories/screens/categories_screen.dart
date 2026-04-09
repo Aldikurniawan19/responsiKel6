@@ -3,6 +3,7 @@ import '../../../core/theme/app_colors.dart';
 import '../models/category_model.dart';
 import '../widgets/category_card_widget.dart';
 import '../../search/screens/search_screen.dart';
+import '../../../screens/main_screen.dart';
 import '../../products/screens/products_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -69,7 +70,15 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ? AppColors.darkBackground
             : AppColors.lightBackground,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          onPressed: () {
+            MainScreen.mainKey.currentState?.switchTab(0);
+          },
+        ),
         title: Text(
           'All Categories',
           style: TextStyle(
