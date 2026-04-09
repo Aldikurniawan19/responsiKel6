@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/theme/app_theme.dart';
-// import 'features/onboarding/screens/onboarding_screen.dart';
-import 'features/home/screens/home_screen.dart';
+import 'screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: currentMode,
 
-          home: const HomeScreen(),
+          home: const MainScreen(),
         );
       },
     );
