@@ -6,6 +6,33 @@ class TrendingCardWidget extends StatelessWidget {
   final Product product;
   final bool isDark;
 
+  Widget _buildImage(String imageUrl) {
+    final isLocal = imageUrl.startsWith('assets/');
+
+    if (isLocal) {
+      return Image.asset(
+        imageUrl,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+      );
+    }
+
+    return Image.network(
+      imageUrl,
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: Colors.grey.shade100,
+        child: const Icon(
+          Icons.image_not_supported_outlined,
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+
   const TrendingCardWidget({
     super.key,
     required this.product,
@@ -22,12 +49,7 @@ class TrendingCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: Stack(
               children: [
-                Image.network(
-                  product.imageUrl,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+                _buildImage(product.imageUrl),
 
                 if (product.rating != null && product.reviewCount != null)
                   Positioned(

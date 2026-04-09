@@ -10,9 +10,9 @@ class Product {
   final double? rating;
   final int? reviewCount;
   final String? brand;
-  final List<String> thumbnailImages; // Daftar gambar thumbnail
-  final List<String> sizes; // Daftar ukuran: ['S', 'M', 'L', 'XL']
-  final List<int> colors; // Daftar warna (ARGB int): [0xFF000000, ...]
+  final List<String> thumbnailImages;
+  final List<String> sizes;
+  final List<int> colors;
   final String description;
 
   Product({

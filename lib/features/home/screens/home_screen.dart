@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
@@ -10,6 +11,7 @@ import '../../search/screens/search_screen.dart';
 import '../../categories/screens/categories_screen.dart';
 import '../../wishlist/screens/wishlist_screen.dart';
 import '../../profile/screens/profile_screen.dart';
+import '../../cart/screens/cart_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,11 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   // --- DATA MOCK PRODUK POPULER ---
-  // --- DATA MOCK PRODUK POPULER ---
   final List<Product> _products = [
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'T-Shirt',
       title: 'Men Black Grey Allover Printed Round Neck T-Shirt',
       oldPrice: 30.15,
@@ -35,10 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
-        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400',
+        'assets/images/1.jpg',
+        'assets/images/1.jpg',
+        'assets/images/1.jpg',
       ],
       rating: 4.5,
       reviewCount: 2600,
@@ -48,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'There are many variations of passages of Lorem Ipsum available.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
       category: 'Jacket',
       title: 'Men Black Denim Winter Jacket',
       oldPrice: 40.55,
@@ -58,7 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
       isSale: true,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+        'assets/images/2.jpg',
+        'assets/images/2.jpg',
+        'assets/images/2.jpg',
       ],
       rating: 4.8,
       reviewCount: 1200,
@@ -67,8 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'Premium quality denim jacket designed for winter wear.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/3.jpg',
       category: 'Jacket',
       title: 'Women Pink Leather Biker Jacket',
       oldPrice: 40.55,
@@ -77,7 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
       isSale: false,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+        'assets/images/3.jpg',
+        'assets/images/3.jpg',
+        'assets/images/3.jpg',
       ],
       rating: 4.7,
       reviewCount: 3400,
@@ -86,8 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'Stylish pink leather biker jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'T-Shirt',
       title: 'Classic White Basic T-Shirt',
       oldPrice: 15.00,
@@ -95,9 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
       badgeText: 'HOT',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400',
-      ],
+      thumbnailImages: ['assets/images/1.jpg'],
       rating: 4.9,
       reviewCount: 8900,
       sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -109,8 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // --- DATA MOCK PRODUK TRENDING ---
   final List<Product> _trendingProducts = [
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
       category: 'Jacket',
       title: 'Men Black Denim Winter Jacket',
       oldPrice: 40.55,
@@ -118,9 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
       badgeText: '',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
-      ],
+      thumbnailImages: ['assets/images/2.jpg'],
       rating: 4.5,
       reviewCount: 2547,
       sizes: ['M', 'L', 'XL'],
@@ -128,8 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'Trending winter jacket for men.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/3.jpg',
       category: 'Jacket',
       title: 'Women Pink Leather Biker Jacket',
       oldPrice: 40.55,
@@ -137,9 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
       badgeText: '',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
-      ],
+      thumbnailImages: ['assets/images/3.jpg'],
       rating: 4.8,
       reviewCount: 3102,
       sizes: ['S', 'M'],
@@ -147,8 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'Highly requested pink leather jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'T-Shirt',
       title: 'Men Black Grey Allover Printed',
       oldPrice: 30.15,
@@ -156,9 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
       badgeText: '',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
-      ],
+      thumbnailImages: ['assets/images/1.jpg'],
       rating: 4.3,
       reviewCount: 1540,
       sizes: ['M', 'L'],
@@ -326,52 +315,87 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       // --- BOTTOM NAVIGATION BAR KUSTOM ---
+      // FAB dengan hexagon rounded yang muncul di depan navbar
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: isDark ? AppColors.primary : Colors.black,
-        elevation: 10,
-        shape: const ShapeHexagon(),
-        child: const Icon(
-          Icons.shopping_bag_outlined,
-          color: Colors.white,
-          size: 28,
+      floatingActionButton: Transform.translate(
+        offset: const Offset(0, 16), // Turunkan posisi
+        child: Container(
+          width: 72,
+          height: 72,
+          decoration: ShapeDecoration(
+            color: isDark ? AppColors.primary : Colors.black,
+            shape: const RoundedHexagonBorder(),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              customBorder: const RoundedHexagonBorder(),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                );
+              },
+              child: const Icon(
+                Icons.shopping_bag_outlined,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 10,
-        color: isDark ? AppColors.darkCardBackground : Colors.white,
-        elevation: 20,
-        child: SizedBox(
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, Icons.home, 'Home', 0, isDark),
-              _buildNavItem(
-                Icons.category_outlined,
-                Icons.category,
-                'Categories',
-                1,
-                isDark,
-              ),
-              const SizedBox(width: 40), // Ruang untuk FAB
-              _buildNavItem(
-                Icons.favorite_border,
-                Icons.favorite,
-                'Wishlist',
-                2,
-                isDark,
-              ),
-              _buildNavItem(
-                Icons.person_outline,
-                Icons.person,
-                'Profile',
-                3,
-                isDark,
-              ),
-            ],
+
+      // BottomAppBar tanpa notch agar navbar tetap solid dan FAB benar-benar di depan
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.darkCardBackground : Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 16,
+              offset: const Offset(0, -4),
+            ),
+          ],
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: SafeArea(
+          child: SizedBox(
+            height: 64,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(
+                  Icons.home_outlined,
+                  Icons.home,
+                  'Home',
+                  0,
+                  isDark,
+                ),
+                _buildNavItem(
+                  Icons.grid_view_outlined,
+                  Icons.grid_view,
+                  'Categories',
+                  1,
+                  isDark,
+                ),
+                const SizedBox(width: 56), // Ruang tengah untuk FAB
+                _buildNavItem(
+                  Icons.favorite_border,
+                  Icons.favorite,
+                  'Wishlist',
+                  2,
+                  isDark,
+                ),
+                _buildNavItem(
+                  Icons.person_outline,
+                  Icons.person,
+                  'Profile',
+                  3,
+                  isDark,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -439,45 +463,72 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class ShapeHexagon extends OutlinedBorder {
-  const ShapeHexagon({super.side});
+// Custom Hexagon Shape yang rounded
+class RoundedHexagonBorder extends ShapeBorder {
+  const RoundedHexagonBorder();
 
   @override
-  OutlinedBorder copyWith({BorderSide? side}) {
-    return ShapeHexagon(side: side ?? this.side);
-  }
+  EdgeInsetsGeometry get dimensions => EdgeInsets.zero;
 
   @override
-  ShapeBorder scale(double t) {
-    return ShapeHexagon(side: side.scale(t));
-  }
-
-  @override
-  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
-    return _getHexagonPath(rect);
-  }
+  Path getInnerPath(Rect rect, {TextDirection? textDirection}) =>
+      getOuterPath(rect, textDirection: textDirection);
 
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
-    return _getHexagonPath(rect);
-  }
+    final cx = rect.center.dx;
+    final cy = rect.center.dy;
+    final r = rect.shortestSide / 2;
+    final cornerRadius = r * 0.25;
 
-  Path _getHexagonPath(Rect rect) {
-    final Path path = Path();
-    final double centerX = rect.left + rect.width / 2;
-    final double centerY = rect.top + rect.height / 2;
-    final double radius = rect.width / 2;
+    // 6 titik hexagon (flat-top, dirotasi 90°)
+    final angles = List.generate(
+      6,
+      (i) => (i * 60 - 90) * (3.141592653589793 / 180),
+    );
+    final points = angles
+        .map((a) => Offset(cx + r * cos(a), cy + r * sin(a)))
+        .toList();
 
-    path.moveTo(centerX + radius * 0.866, centerY - radius * 0.5);
-    path.lineTo(centerX, centerY - radius);
-    path.lineTo(centerX - radius * 0.866, centerY - radius * 0.5);
-    path.lineTo(centerX - radius * 0.866, centerY + radius * 0.5);
-    path.lineTo(centerX, centerY + radius);
-    path.lineTo(centerX + radius * 0.866, centerY + radius * 0.5);
+    final path = Path();
+    for (int i = 0; i < 6; i++) {
+      final curr = points[i];
+      final next = points[(i + 1) % 6];
+      final prev = points[(i + 5) % 6];
+
+      final toCurr = (curr - prev);
+      final toNext = (next - curr);
+
+      final len1 = toCurr.distance;
+      final len2 = toNext.distance;
+
+      final p1 =
+          curr -
+          Offset(
+            toCurr.dx / len1 * cornerRadius,
+            toCurr.dy / len1 * cornerRadius,
+          );
+      final p2 =
+          curr +
+          Offset(
+            toNext.dx / len2 * cornerRadius,
+            toNext.dy / len2 * cornerRadius,
+          );
+
+      if (i == 0) {
+        path.moveTo(p1.dx, p1.dy);
+      } else {
+        path.lineTo(p1.dx, p1.dy);
+      }
+      path.quadraticBezierTo(curr.dx, curr.dy, p2.dx, p2.dy);
+    }
     path.close();
     return path;
   }
 
   @override
   void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {}
+
+  @override
+  ShapeBorder scale(double t) => this;
 }

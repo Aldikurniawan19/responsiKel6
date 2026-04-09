@@ -98,9 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                    'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop',
-                  ),
+                  image: AssetImage('assets/images/onBoarding.png'),
                   fit: BoxFit.cover,
                 ),
               ),

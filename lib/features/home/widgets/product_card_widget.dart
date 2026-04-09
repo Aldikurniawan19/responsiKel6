@@ -3,7 +3,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 import '../screens/product_detail_screen.dart';
 
-// --- 1. UBAH MENJADI STATEFUL WIDGET ---
 class ProductCardWidget extends StatefulWidget {
   final Product product;
   final bool isDark;
@@ -19,13 +18,40 @@ class ProductCardWidget extends StatefulWidget {
 }
 
 class _ProductCardWidgetState extends State<ProductCardWidget> {
-  // Variabel state lokal untuk melacak status wishlist kartu ini
   late bool _isWishlist;
+
+  Widget _buildImage(String imageUrl) {
+    final isLocal = imageUrl.startsWith('assets/');
+
+    if (isLocal) {
+      return Image.asset(
+        imageUrl,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _imagePlaceholder(),
+      );
+    }
+
+    return Image.network(
+      imageUrl,
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => _imagePlaceholder(),
+    );
+  }
+
+  Widget _imagePlaceholder() {
+    return Container(
+      color: widget.isDark ? Colors.grey.shade800 : Colors.grey.shade100,
+      child: const Icon(Icons.image_not_supported_outlined, color: Colors.grey),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    // Set status awal berdasarkan data produk dari database/mock data
     _isWishlist = widget.product.isWishlist;
   }
 
@@ -45,13 +71,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
           color: widget.isDark
               ? AppColors.darkCardBackground
               : AppColors.lightCardBackground,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: widget.isDark
               ? []
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 5,
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
                 ],
@@ -59,110 +85,99 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ── Gambar + Badge + Heart ──
             AspectRatio(
               aspectRatio: 1 / 1,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(4),
-                  topRight: Radius.circular(4),
-                ),
-                child: Stack(
-                  children: [
-                    Image.network(
-                      widget.product.imageUrl,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  // Gambar produk
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
                     ),
+                    child: _buildImage(widget.product.imageUrl),
+                  ),
 
-                    if (widget.product.badgeText.isNotEmpty)
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: widget.product.isSale
-                                ? AppColors.primary
-                                : Colors.black,
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                          child: Text(
-                            widget.product.badgeText,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    // --- 2. TOMBOL WISHLIST YANG SUDAH BERFUNGSI ---
+                  // Badge — menempel pas di sudut kiri atas
+                  if (widget.product.badgeText.isNotEmpty)
                     Positioned(
-                      top: 10,
-                      right: 10,
-                      child: GestureDetector(
-                        onTap: () {
-                          // Ubah state _isWishlist saat tombol diklik
-                          setState(() {
-                            _isWishlist = !_isWishlist;
-                          });
-
-                          // Munculkan notifikasi pop-up kecil
-                          ScaffoldMessenger.of(
-                            context,
-                          ).clearSnackBars(); // Bersihkan snackbar sebelumnya agar tidak menumpuk
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                _isWishlist
-                                    ? 'Added to Wishlist!'
-                                    : 'Removed from Wishlist',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: AppColors.primary,
-                              duration: const Duration(
-                                seconds: 1,
-                              ), // Tampil sangat cepat
-                              behavior: SnackBarBehavior.floating,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
+                      top: 0,
+                      left: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: widget.product.isSale
+                              ? AppColors.primary
+                              : Colors.black87,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(10),
                           ),
-                          child: Icon(
-                            // Ubah ikon berdasarkan state _isWishlist
-                            _isWishlist
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: _isWishlist ? Colors.red : Colors.green,
-                            size: 18,
+                        ),
+                        child: Text(
+                          widget.product.badgeText,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+
+                  // Heart — kanan atas
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isWishlist = !_isWishlist;
+                        });
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              _isWishlist
+                                  ? 'Added to Wishlist!'
+                                  : 'Removed from Wishlist',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: AppColors.primary,
+                            duration: const Duration(seconds: 1),
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Icon(
+                        _isWishlist ? Icons.favorite : Icons.favorite_border,
+                        color: _isWishlist
+                            ? Colors.redAccent
+                            : AppColors.primary,
+                        size: 22,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
+            // ── Info Produk ──
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Kategori
                     Text(
                       widget.product.category,
                       style: TextStyle(
@@ -172,21 +187,26 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                         fontSize: 11,
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    Text(
-                      widget.product.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: widget.isDark ? Colors.white : Colors.black,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        height: 1.3,
+                    const SizedBox(height: 4),
+
+                    // Judul
+                    Expanded(
+                      child: Text(
+                        widget.product.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: widget.isDark ? Colors.white : Colors.black87,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          height: 1.3,
+                        ),
                       ),
                     ),
 
-                    const Spacer(),
+                    const SizedBox(height: 6),
 
+                    // Harga
                     Row(
                       children: [
                         Text(
@@ -197,7 +217,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 6),
                         Text(
                           '\$${widget.product.oldPrice.toStringAsFixed(2)}',
                           style: TextStyle(
