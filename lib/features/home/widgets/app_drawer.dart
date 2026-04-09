@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../screens/main_screen.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
+import '../../products/screens/products_screen.dart';
+import '../../cart/screens/cart_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -68,18 +71,37 @@ class AppDrawer extends StatelessWidget {
                       'Home',
                       isDark,
                       isActive: true,
+                      onTap: () {
+                        Navigator.pop(context);
+                        MainScreen.mainKey.currentState?.switchTab(0);
+                      },
                     ),
                     _buildMenuItem(
                       context,
                       Icons.layers_outlined,
                       'Products',
                       isDark,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProductsScreen(
+                              categoryTitle: 'All Products',
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     _buildMenuItem(
                       context,
                       Icons.favorite_border,
                       'Wishlist',
                       isDark,
+                      onTap: () {
+                        Navigator.pop(context);
+                        MainScreen.mainKey.currentState?.switchTab(2);
+                      },
                     ),
                     _buildMenuItem(context, Icons.sync, 'Orders', isDark),
                     _buildMenuItem(
@@ -87,12 +109,25 @@ class AppDrawer extends StatelessWidget {
                       Icons.shopping_cart_outlined,
                       'My Cart',
                       isDark,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CartScreen(),
+                          ),
+                        );
+                      },
                     ),
                     _buildMenuItem(
                       context,
                       Icons.person_outline,
                       'Profile',
                       isDark,
+                      onTap: () {
+                        Navigator.pop(context);
+                        MainScreen.mainKey.currentState?.switchTab(3);
+                      },
                     ),
                     _buildMenuItem(
                       context,

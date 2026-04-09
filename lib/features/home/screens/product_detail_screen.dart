@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 import '../widgets/size_selector_widget.dart';
 import '../widgets/color_selector_widget.dart';
+import '../../cart/screens/cart_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -287,7 +288,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               SizedBox(
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CartScreen()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(

@@ -14,12 +14,25 @@ import '../features/cart/screens/cart_screen.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
+  /// GlobalKey agar child screen bisa mengakses state MainScreen
+  /// dan berpindah tab secara programatis.
+  static final GlobalKey<MainScreenState> mainKey = GlobalKey<MainScreenState>();
+
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen> createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+
+  /// Pindah ke tab tertentu berdasarkan index (0=Home, 1=Categories, 2=Wishlist, 3=Profile)
+  void switchTab(int index) {
+    if (_currentIndex != index) {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
+  }
 
   // Daftar halaman tab — dipertahankan di memori agar state tidak hilang
   final List<Widget> _pages = const [

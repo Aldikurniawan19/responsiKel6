@@ -7,6 +7,7 @@ import '../widgets/product_card_widget.dart';
 import '../widgets/trending_carousel_widget.dart';
 import '../widgets/app_drawer.dart';
 import '../../search/screens/search_screen.dart';
+import '../../products/screens/products_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
         elevation: 0,
         iconTheme: IconThemeData(
           color: isDark ? Colors.white : Colors.black,
@@ -235,12 +236,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                   ),
-                  const Text(
-                    'See more',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductsScreen(
+                            categoryTitle: 'Most Popular',
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'See more',
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
@@ -286,12 +299,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                   ),
-                  const Text(
-                    'See more',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductsScreen(
+                            categoryTitle: 'Trending Now',
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'See more',
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

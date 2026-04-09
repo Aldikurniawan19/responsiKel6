@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: currentMode,
 
-          home: const MainScreen(),
+          home: MainScreen(key: MainScreen.mainKey),
         );
       },
     );

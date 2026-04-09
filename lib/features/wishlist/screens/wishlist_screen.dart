@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 import '../../home/widgets/product_card_widget.dart';
+import '../../../screens/main_screen.dart';
 
 class WishlistScreen extends StatefulWidget {
   const WishlistScreen({super.key});
@@ -98,7 +99,15 @@ class _WishlistScreenState extends State<WishlistScreen> {
             ? AppColors.darkBackground
             : AppColors.lightBackground,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          onPressed: () {
+            MainScreen.mainKey.currentState?.switchTab(0);
+          },
+        ),
         title: Text(
           'Wishlist',
           style: TextStyle(

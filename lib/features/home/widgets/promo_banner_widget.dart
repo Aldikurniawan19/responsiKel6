@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../products/screens/products_screen.dart';
 
 class BannerContent {
   final String imageUrl;
@@ -181,7 +182,16 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
                 SizedBox(
                   height: 36,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductsScreen(
+                            categoryTitle: content.tag.replaceAll('#', '').trim(),
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -5,7 +5,7 @@ class AppColors {
   static const Color accent = Color(0xFFC0F4A3);
 
   // --- Light Mode Colors ---
-  static const Color lightBackground = Color(0xFFFFFFFF);
+  static const Color lightBackground = Color(0xFFF5F6FA);
   static const Color lightTextTitle = Color(0xFF222222);
   static const Color lightTextBody = Color(0xFF666666);
   static const Color lightIndicatorInactive = Color(0xFFD4D8DB);

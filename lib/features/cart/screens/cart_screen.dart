@@ -162,9 +162,9 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       backgroundColor: isDark
           ? AppColors.darkBackground
-          : const Color(0xFFF8F9FA),
+          : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
