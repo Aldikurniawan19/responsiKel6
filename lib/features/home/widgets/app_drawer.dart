@@ -24,8 +24,8 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 28,
-                    backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200',
+                    backgroundImage: AssetImage(
+                      'assets/images/profil.png',
                     ),
                   ),
                   const SizedBox(width: 16),

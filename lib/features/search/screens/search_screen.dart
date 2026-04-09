@@ -23,8 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final List<Product> _allProducts = [
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
       category: 'Jacket',
       title: 'Men Black Denim Winter Jacket',
       oldPrice: 40.55,
@@ -33,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
       isSale: true,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+        'assets/images/2.jpg',
       ],
       rating: 4.8,
       reviewCount: 1200,
@@ -42,8 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
       description: 'Premium quality denim jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/3.jpg',
       category: 'Jacket',
       title: 'Women Pink Leather Biker Jacket',
       oldPrice: 40.55,
@@ -52,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+        'assets/images/3.jpg',
       ],
       rating: 4.7,
       reviewCount: 3400,
@@ -61,8 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
       description: 'Stylish pink leather biker jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'T-Shirt',
       title: 'Men Black Grey Allover Printed',
       oldPrice: 30.15,
@@ -71,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+        'assets/images/1.jpg',
       ],
       rating: 4.5,
       reviewCount: 2600,

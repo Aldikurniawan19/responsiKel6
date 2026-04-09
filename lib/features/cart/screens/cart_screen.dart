@@ -23,7 +23,7 @@ class _CartScreenState extends State<CartScreen> {
       quantity: 1,
       product: Product(
         imageUrl:
-            'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+            'assets/images/1.jpg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -44,7 +44,7 @@ class _CartScreenState extends State<CartScreen> {
       quantity: 1,
       product: Product(
         imageUrl:
-            'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+            'assets/images/1.jpg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -65,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
       quantity: 1,
       product: Product(
         imageUrl:
-            'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+            'assets/images/1.jpg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -203,8 +203,8 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         const CircleAvatar(
                           radius: 16,
-                          backgroundImage: NetworkImage(
-                            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200',
+                          backgroundImage: AssetImage(
+                            'assets/images/profil.png',
                           ),
                         ),
                         const SizedBox(width: 12),

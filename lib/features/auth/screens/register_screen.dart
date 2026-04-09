@@ -209,10 +209,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildSocialButton(
-                    child: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png',
-                      height: 28,
-                      width: 28,
+                    child: const Text(
+                      'G',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
                     ),
                     isDark: isDark,
                   ),

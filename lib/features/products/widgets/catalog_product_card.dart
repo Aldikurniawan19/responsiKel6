@@ -64,11 +64,17 @@ class _CatalogProductCardState extends State<CatalogProductCard> {
                 ),
                 child: Stack(
                   children: [
-                    Image.network(
-                      widget.product.imageUrl,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    widget.product.imageUrl.startsWith('assets/')
+                        ? Image.asset(
+                            widget.product.imageUrl,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            widget.product.imageUrl,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                     Positioned(
                       top: 10,
                       right: 10,

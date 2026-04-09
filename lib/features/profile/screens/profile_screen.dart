@@ -135,8 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const CircleAvatar(
                   radius: 36,
-                  backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200',
+                  backgroundImage: AssetImage(
+                    'assets/images/profil.png',
                   ), // Foto profil mock
                 ),
                 const SizedBox(width: 16),

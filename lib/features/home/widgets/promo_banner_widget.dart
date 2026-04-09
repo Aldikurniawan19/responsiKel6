@@ -32,22 +32,19 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
 
   final List<BannerContent> _banners = [
     BannerContent(
-      imageUrl:
-          'https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=600',
+      imageUrl: 'assets/images/8.jpeg',
       tag: '#WINTER SALE',
       offer: '35% Off',
       description: 'Discover our latest Products',
     ),
     BannerContent(
-      imageUrl:
-          'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=600',
+      imageUrl: 'assets/images/9.jpeg',
       tag: '#SPRING COLLECTION',
       offer: '50% Off',
       description: 'Explore New Styles',
     ),
     BannerContent(
-      imageUrl:
-          'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600',
+      imageUrl: 'assets/images/7.jpeg',
       tag: '#FLASH SALE',
       offer: '10% Off',
       description: 'Hurry Up! Limited Stock',
@@ -143,7 +140,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             topLeft: Radius.circular(10),
             bottomLeft: Radius.circular(10),
           ),
-          child: Image.network(content.imageUrl, width: 140, fit: BoxFit.cover),
+          child: Image.asset(content.imageUrl, width: 140, fit: BoxFit.cover),
         ),
         const SizedBox(width: 15),
         Expanded(

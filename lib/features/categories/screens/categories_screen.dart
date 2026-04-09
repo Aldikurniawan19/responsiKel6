@@ -95,50 +95,43 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       title: 'Men T-shirt',
       itemCount: 240,
       backgroundColorValue: 0xFFE6CDB8,
-      imageUrl:
-          'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
     ),
     CategoryModel(
       title: 'Jackets',
       itemCount: 140,
       backgroundColorValue: 0xFFF1B7C1,
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
     ),
     CategoryModel(
       title: 'Shoes',
       itemCount: 104,
       backgroundColorValue: 0xFFF0F2F1,
-      imageUrl:
-          'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=400',
+      imageUrl: 'assets/images/4.jpeg',
     ),
     CategoryModel(
       title: 'Sunglasses',
       itemCount: 100,
       backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
+      imageUrl: 'assets/images/5.jpeg',
     ),
     CategoryModel(
       title: 'Sunglasses',
       itemCount: 100,
       backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
+      imageUrl: 'assets/images/6.jpeg',
     ),
     CategoryModel(
       title: 'Sunglasses',
       itemCount: 100,
       backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
+      imageUrl: 'assets/images/7.jpeg',
     ),
     CategoryModel(
       title: 'Sunglasses',
       itemCount: 100,
       backgroundColorValue: 0xFFB8F2ED,
-      imageUrl:
-          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400',
+      imageUrl: 'assets/images/8.jpeg',
     ),
   ];
 

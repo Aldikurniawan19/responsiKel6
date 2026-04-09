@@ -32,11 +32,17 @@ class CategoryCardWidget extends StatelessWidget {
                 topRight: Radius.circular(4),
                 bottomRight: Radius.circular(4),
               ),
-              child: Image.network(
-                category.imageUrl,
-                width: 160,
-                fit: BoxFit.cover,
-              ),
+              child: category.imageUrl.startsWith('assets/')
+                  ? Image.asset(
+                      category.imageUrl,
+                      width: 160,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      category.imageUrl,
+                      width: 160,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
 

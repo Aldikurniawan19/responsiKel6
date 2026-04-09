@@ -19,8 +19,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   final List<Product> _catalogProducts = [
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+      imageUrl: 'assets/images/4.jpeg',
       category: 'Jacket',
       brand: 'Peter England Casual',
       title: 'Peter Longline Pure Cotton Jacket',
@@ -30,7 +29,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+        'assets/images/4.jpeg',
       ],
       rating: 4.5,
       reviewCount: 265,
@@ -39,8 +38,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       description: 'High quality pure cotton jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/5.jpeg',
       category: 'Jacket',
       brand: 'Zara Men',
       title: 'Peter Longline Pure Cotton Leather',
@@ -50,7 +48,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+        'assets/images/5.jpeg',
       ],
       rating: 4.5,
       reviewCount: 265,
@@ -59,8 +57,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       description: 'Elegant casual leather jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/6.jpeg',
       category: 'Jacket',
       brand: 'H&M',
       title: 'Peter Longline Pure Cotton Biker',
@@ -70,7 +67,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+        'assets/images/6.jpeg',
       ],
       rating: 4.5,
       reviewCount: 265,
@@ -79,8 +76,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       description: 'Classic black biker jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+      imageUrl: 'assets/images/7.jpeg',
       category: 'Jacket',
       brand: 'Peter England Casual',
       title: 'Peter Longline Pure Cotton Tan',
@@ -90,7 +86,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       isSale: false,
       isWishlist: false,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+        'assets/images/7.jpeg',
       ],
       rating: 4.5,
       reviewCount: 265,

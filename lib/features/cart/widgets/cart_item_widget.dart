@@ -51,12 +51,19 @@ class _CartItemWidgetState extends State<CartItemWidget> {
           // Gambar Produk
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.network(
-              widget.cartItem.product.imageUrl,
-              width: 80,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
+            child: widget.cartItem.product.imageUrl.startsWith('assets/')
+                ? Image.asset(
+                    widget.cartItem.product.imageUrl,
+                    width: 80,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    widget.cartItem.product.imageUrl,
+                    width: 80,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
           ),
           const SizedBox(width: 16),
           // Detail Produk
