@@ -180,7 +180,10 @@ class _WishlistScreenState extends State<WishlistScreen> {
             Icons.arrow_back,
             color: isDark ? Colors.white : Colors.black,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          ),
         ),
         title: Text(
           'Wishlist',

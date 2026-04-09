@@ -102,7 +102,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Icons.arrow_back,
             color: isDark ? Colors.white : Colors.black,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          ),
         ),
         title: Text(
           'Profile',

@@ -151,7 +151,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             Icons.arrow_back,
             color: isDark ? Colors.white : Colors.black,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          ),
         ),
         title: Text(
           'All Categories',
