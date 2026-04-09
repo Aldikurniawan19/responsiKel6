@@ -74,7 +74,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           children: [
             // Gambar Utama (Cek apakah list kosong untuk mencegah error)
             if (widget.product.thumbnailImages.isNotEmpty)
-              Image.network(
+              Image.asset(
                 widget.product.thumbnailImages[_currentThumbnailIndex],
                 width: double.infinity,
                 height: 380,
@@ -104,7 +104,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           image: DecorationImage(
-                            image: NetworkImage(
+                            image: AssetImage(
                               widget.product.thumbnailImages[index],
                             ),
                             fit: BoxFit.cover,

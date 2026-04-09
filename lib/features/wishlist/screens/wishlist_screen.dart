@@ -91,8 +91,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   // --- DATA MOCK PRODUK WISHLIST ---
   final List<Product> _wishlistProducts = [
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'T-Shirt',
       title: 'Men Black Grey Allover Printed Round Neck...',
       oldPrice: 30.15,
@@ -101,7 +100,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       isSale: false,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400',
+        'assets/images/1.jpg',
       ],
       rating: 4.5,
       reviewCount: 2600,
@@ -110,8 +109,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       description: 'Casual printed t-shirt.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
       category: 'Jacket',
       title: 'Men Black Denim Winter Jacket',
       oldPrice: 25.13,
@@ -120,7 +118,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       isSale: true,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400',
+        'assets/images/2.jpg',
       ],
       rating: 4.8,
       reviewCount: 1200,
@@ -129,8 +127,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       description: 'Premium quality denim jacket designed for winter wear.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/3.jpg',
       category: 'Jacket',
       title: 'Women Pink Leather Biker Jacket',
       oldPrice: 40.55,
@@ -139,7 +136,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       isSale: false,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+        'assets/images/3.jpg',
       ],
       rating: 4.7,
       reviewCount: 3400,
@@ -148,8 +145,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       description: 'Stylish pink leather biker jacket.',
     ),
     Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
       category: 'Jacket',
       title: 'Peter Longline Pure Cotton Jacket',
       oldPrice: 30.15,
@@ -158,7 +154,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       isSale: false,
       isWishlist: true,
       thumbnailImages: [
-        'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+        'assets/images/1.jpg',
       ],
       rating: 4.5,
       reviewCount: 265,
