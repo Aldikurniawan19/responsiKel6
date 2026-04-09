@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(
           color: isDark ? Colors.white : Colors.black,
