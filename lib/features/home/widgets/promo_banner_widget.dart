@@ -8,12 +8,14 @@ class BannerContent {
   final String tag;
   final String offer;
   final String description;
+  final bool imageOnRight;
 
   BannerContent({
     required this.imageUrl,
     required this.tag,
     required this.offer,
     required this.description,
+    this.imageOnRight = false,
   });
 }
 
@@ -43,6 +45,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       tag: '#SPRING COLLECTION',
       offer: '50% Off',
       description: 'Explore New Styles',
+      imageOnRight: true, // Gambar di kanan untuk slide kedua
     ),
     BannerContent(
       imageUrl: 'assets/images/7.jpeg',
@@ -59,7 +62,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       if (_currentBanner < _banners.length - 1) {
         _currentBanner++;
       } else {
-        _currentBanner = 0;
+        _currentBanner = 0; // Kembali ke awal
       }
 
       if (_bannerController.hasClients) {
@@ -79,6 +82,48 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
     super.dispose();
   }
 
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentBanner = index;
+    });
+
+    // Jika sudah di slide terakhir (manual swipe), kembali ke awal setelah delay
+    if (index == _banners.length - 1) {
+      // Reset timer agar tidak bentrok
+      _timer?.cancel();
+      _timer = Timer(const Duration(seconds: 4), () {
+        if (_bannerController.hasClients) {
+          _bannerController.animateToPage(
+            0,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+          );
+        }
+        // Restart periodic timer
+        _startAutoSlide();
+      });
+    }
+  }
+
+  void _startAutoSlide() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+      if (_currentBanner < _banners.length - 1) {
+        _currentBanner++;
+      } else {
+        _currentBanner = 0;
+      }
+
+      if (_bannerController.hasClients) {
+        _bannerController.animateToPage(
+          _currentBanner,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -91,21 +136,20 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
         children: [
           PageView.builder(
             controller: _bannerController,
-            onPageChanged: (index) {
-              setState(() {
-                _currentBanner = index;
-              });
-            },
+            onPageChanged: _onPageChanged,
             itemCount: _banners.length,
             itemBuilder: (context, index) {
               return _buildBannerSlide(_banners[index], widget.isDark);
             },
           ),
 
+          // Dot indicator di kanan
           Positioned(
-            right: 20,
-            top: 50,
+            right: 16,
+            top: 0,
+            bottom: 0,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _banners.length,
                 (index) => Padding(
@@ -124,82 +168,108 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
   }
 
   Widget _buildBannerSlide(BannerContent content, bool isDark) {
-    return Row(
-      children: [
-        Image.asset(content.imageUrl, width: 140, height: 200, fit: BoxFit.cover),
-        const SizedBox(width: 15),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  content.tag,
-                  style: const TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  content.offer,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    height: 1.1,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  content.description,
-                  style: TextStyle(
-                    color: isDark
-                        ? AppColors.darkTextBody
-                        : AppColors.lightTextBody,
-                    fontSize: 11,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  height: 36,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductsScreen(
-                            categoryTitle: content.tag.replaceAll('#', '').trim(),
-                          ),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Text(
-                      'Shop Now',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    final imageWidget = Expanded(
+      flex: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(
+            content.imageUrl,
+            height: 200,
+            fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(width: 40),
-      ],
+      ),
+    );
+
+    final textWidget = Expanded(
+      flex: 5,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: content.imageOnRight ? 16 : 4,
+          right: content.imageOnRight ? 4 : 36,
+          top: 20,
+          bottom: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: content.imageOnRight
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              content.tag,
+              style: const TextStyle(
+                color: AppColors.primary,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              content.offer,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                height: 1.1,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              content.description,
+              textAlign: content.imageOnRight ? TextAlign.left : TextAlign.right,
+              style: TextStyle(
+                color: isDark
+                    ? AppColors.darkTextBody
+                    : AppColors.lightTextBody,
+                fontSize: 11,
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 34,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductsScreen(
+                        categoryTitle: content.tag.replaceAll('#', '').trim(),
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  elevation: 0,
+                ),
+                child: const Text(
+                  'Shop Now',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        children: content.imageOnRight
+            ? [textWidget, imageWidget]
+            : [imageWidget, textWidget],
+      ),
     );
   }
 
@@ -207,9 +277,9 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: 8,
-      height: 8,
+      height: isActive ? 20 : 8,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(4),
         color: isActive
             ? AppColors.primary
             : (isDark

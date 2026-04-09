@@ -99,7 +99,7 @@ class MainScreenState extends State<MainScreen> {
         ),
         child: SafeArea(
           child: SizedBox(
-            height: 64,
+            height: 76,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
