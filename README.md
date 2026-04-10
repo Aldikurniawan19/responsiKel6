@@ -113,7 +113,7 @@ flutter build apk
 
 ## 👥 Tim Pengembang
 
-**Kelompok 6** — Responsi Mobile Programming
+**Kelompok 6** — Responsi Aplikasi Perangkat Bergerak & Paraktik
 
 ## 📄 Lisensi
 
