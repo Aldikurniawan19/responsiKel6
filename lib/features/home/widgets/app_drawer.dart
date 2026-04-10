@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../screens/main_screen.dart';
@@ -85,8 +86,8 @@ class AppDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductsScreen(
+                          LoadingPageRoute(
+                            page: const ProductsScreen(
                               categoryTitle: 'All Products',
                             ),
                           ),
@@ -113,8 +114,8 @@ class AppDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const CartScreen(),
+                          LoadingPageRoute(
+                            page: const CartScreen(),
                           ),
                         );
                       },
@@ -138,8 +139,8 @@ class AppDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const OnboardingScreen(),
+                          LoadingPageRoute(
+                            page: const OnboardingScreen(),
                           ),
                           (route) => false,
                         );

@@ -183,9 +183,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
     return Scaffold(
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark
-            ? AppColors.darkBackground
-            : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(

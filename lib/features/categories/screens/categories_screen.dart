@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../models/category_model.dart';
 import '../widgets/category_card_widget.dart';
@@ -42,20 +43,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     CategoryModel(
       title: 'Sunglasses',
       itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
+      backgroundColorValue: 0xFFFFFF,
       imageUrl: 'assets/images/6.jpeg',
-    ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
-      imageUrl: 'assets/images/7.jpeg',
-    ),
-    CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFB8F2ED,
-      imageUrl: 'assets/images/8.jpeg',
     ),
   ];
 
@@ -66,9 +55,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return Scaffold(
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark
-            ? AppColors.darkBackground
-            : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -97,7 +84,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SearchScreen()),
+                LoadingPageRoute(page: const SearchScreen()),
               );
             },
           ),
@@ -115,8 +102,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             onShopNowTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) =>
+                LoadingPageRoute(
+                  page:
                       ProductsScreen(categoryTitle: _categories[index].title),
                 ),
               );

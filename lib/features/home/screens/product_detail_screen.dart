@@ -1,6 +1,7 @@
 // lib/features/home/screens/product_detail_screen.dart
 
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 // Import Google Fonts DIHAPUS untuk menghilangkan warning unused_import
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
@@ -291,7 +292,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CartScreen()),
+                      LoadingPageRoute(page: const CartScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

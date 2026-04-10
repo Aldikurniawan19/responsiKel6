@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'HOTDIE',
+                    'HotDiee',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

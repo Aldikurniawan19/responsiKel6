@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../../screens/main_screen.dart';
@@ -18,11 +19,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       // --- APPBAR ---
       appBar: AppBar(
-        backgroundColor: isDark
-            ? AppColors.darkBackground
-            : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          onPressed: () {
+            MainScreen.mainKey.currentState?.switchTab(0);
+          },
+        ),
         title: Text(
           'Profile',
           style: TextStyle(
@@ -31,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: isDark ? Colors.white : Colors.black,
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
         actions: [
           IconButton(
             icon: Icon(
@@ -171,8 +178,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const OnboardingScreen(),
+                  LoadingPageRoute(
+                    page: const OnboardingScreen(),
                   ),
                   (route) => false,
                 );
@@ -187,7 +194,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // Helper Widget: Kotak Quick Action
-  Widget _buildQuickAction(IconData icon, String label, bool isDark, {VoidCallback? onTap}) {
+  Widget _buildQuickAction(
+    IconData icon,
+    String label,
+    bool isDark, {
+    VoidCallback? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../products/screens/products_screen.dart';
 
@@ -231,8 +232,8 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductsScreen(
+                    LoadingPageRoute(
+                      page: ProductsScreen(
                         categoryTitle: content.tag.replaceAll('#', '').trim(),
                       ),
                     ),

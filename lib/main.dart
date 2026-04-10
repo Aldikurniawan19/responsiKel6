@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       valueListenable: AppTheme.themeNotifier,
       builder: (_, ThemeMode currentMode, __) {
         return MaterialApp(
-          title: 'Hotdie E-Commerce',
+          title: 'Hotdiee E-Commerce',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,

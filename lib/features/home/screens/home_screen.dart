@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 import '../widgets/promo_banner_widget.dart';
@@ -194,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SearchScreen()),
+                LoadingPageRoute(page: const SearchScreen()),
               );
             },
           ),
@@ -237,8 +238,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProductsScreen(
+                        LoadingPageRoute(
+                          page: const ProductsScreen(
                             categoryTitle: 'Most Popular',
                           ),
                         ),
@@ -300,8 +301,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProductsScreen(
+                        LoadingPageRoute(
+                          page: const ProductsScreen(
                             categoryTitle: 'Trending Now',
                           ),
                         ),

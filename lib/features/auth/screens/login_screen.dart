@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import 'register_screen.dart';
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'HOTDIE',
+                    'HotDiee',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -71,8 +72,8 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MainScreen(key: MainScreen.mainKey),
+                      LoadingPageRoute(
+                        page: MainScreen(key: MainScreen.mainKey),
                       ),
                     );
                   },
@@ -134,9 +135,7 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ),
+                      LoadingPageRoute(page: const RegisterScreen()),
                     );
                   },
                   style: OutlinedButton.styleFrom(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 import '../core/widgets/rounded_hexagon_border.dart';
+import '../core/widgets/page_transition.dart';
 import '../features/home/screens/home_screen.dart';
 import '../features/categories/screens/categories_screen.dart';
 import '../features/wishlist/screens/wishlist_screen.dart';
@@ -71,7 +72,7 @@ class MainScreenState extends State<MainScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                  LoadingPageRoute(page: const CartScreen()),
                 );
               },
               child: const Icon(

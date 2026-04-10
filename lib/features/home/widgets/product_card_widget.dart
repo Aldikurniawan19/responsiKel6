@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 import '../screens/product_detail_screen.dart';
@@ -61,8 +62,8 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailScreen(product: widget.product),
+          LoadingPageRoute(
+            page: ProductDetailScreen(product: widget.product),
           ),
         );
       },
