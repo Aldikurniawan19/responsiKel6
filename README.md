@@ -117,7 +117,7 @@ flutter build apk
 
 | NIM | Nama | GitHub |
 |-----|------|--------|
-| 5230311013 | Aldi Kurniawan | [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)](https://github.com/USERNAME_ALDI) |
+| 5230311013 | Aldi Kurniawan | [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)](https://github.com/Aldikurniawan19) |
 | 5230311043 | Wimbo Sedayu | [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)](https://github.com/USERNAME_WIMBO) |
 | 5230311053 | Muhammad Vito Pratama | [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)](https://github.com/USERNAME_VITO) |
 | 5230311069 | Imsida Oktavia Putri Nabilah | [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)](https://github.com/USERNAME_IMSIDA) |
