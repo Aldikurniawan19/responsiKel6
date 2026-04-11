@@ -1,4 +1,4 @@
-# 🛍️ HotDiee Fashion Store
+# 🛍️ W3Cart Fashion Store
 
 Aplikasi e-commerce fashion modern yang dibangun dengan **Flutter**, menampilkan pengalaman belanja online yang elegan dan responsif dengan dukungan tema gelap/terang.
 
@@ -121,4 +121,4 @@ Proyek ini dibuat untuk keperluan akademik.
 
 ---
 
-> **HotDiee Fashion Store** — *Your Style, Your Way* 🔥
+> **W3Cart Fashion Store** — *Your Style, Your Way* 🔥

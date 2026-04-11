@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       valueListenable: AppTheme.themeNotifier,
       builder: (_, ThemeMode currentMode, __) {
         return MaterialApp(
-          title: 'Hotdiee E-Commerce',
+          title: 'W3Cart E-Commerce',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,

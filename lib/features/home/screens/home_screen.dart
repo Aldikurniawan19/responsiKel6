@@ -176,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(width: 8),
             Text(
-              'HotDiee',
+              'W3Cart',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

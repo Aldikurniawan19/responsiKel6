@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'HotDiee',
+                    'W3Cart',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -119,26 +119,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: isChecked
-                      ? () {
-                          print('Register button pressed!');
-                        }
-                      : null,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isChecked
-                        ? AppColors.primary
-                        : (isDark ? Colors.grey[800] : Colors.grey[300]),
+                    backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
                     elevation: 0,
                   ),
-                  child: Text(
+                  child: const Text(
                     'Register',
                     style: TextStyle(
-                      color: isChecked
-                          ? Colors.white
-                          : (isDark ? Colors.grey[600] : Colors.grey[700]),
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),

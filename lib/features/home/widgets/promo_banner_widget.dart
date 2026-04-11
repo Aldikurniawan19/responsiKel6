@@ -10,6 +10,7 @@ class BannerContent {
   final String offer;
   final String description;
   final bool imageOnRight;
+  final Color? backgroundColor;
 
   BannerContent({
     required this.imageUrl,
@@ -17,6 +18,7 @@ class BannerContent {
     required this.offer,
     required this.description,
     this.imageOnRight = false,
+    this.backgroundColor,
   });
 }
 
@@ -36,23 +38,26 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
 
   final List<BannerContent> _banners = [
     BannerContent(
-      imageUrl: 'assets/images/4.jpeg',
+      imageUrl: 'assets/images/4b.png',
       tag: '#WINTER SALE',
       offer: '35% Off',
       description: 'Discover our latest Products',
+      backgroundColor: const Color(0xFFC2DAD5),
     ),
     BannerContent(
-      imageUrl: 'assets/images/9.jpeg',
+      imageUrl: 'assets/images/9b.png',
       tag: '#SPRING COLLECTION',
       offer: '50% Off',
       description: 'Explore New Styles',
       imageOnRight: true, // Gambar di kanan untuk slide kedua
+      backgroundColor: const Color(0xFFFFF8E7), // Cream color
     ),
     BannerContent(
-      imageUrl: 'assets/images/3.jpg',
+      imageUrl: 'assets/images/3b.png',
       tag: '#FLASH SALE',
       offer: '10% Off',
       description: 'Hurry Up! Limited Stock',
+      backgroundColor: const Color(0xFFC2DAD5),
     ),
   ];
 
@@ -127,12 +132,9 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 200,
-      decoration: BoxDecoration(
-        color: widget.isDark ? AppColors.darkCardBackground : Colors.white,
-      ),
       child: Stack(
         children: [
           PageView.builder(
@@ -140,7 +142,10 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             onPageChanged: _onPageChanged,
             itemCount: _banners.length,
             itemBuilder: (context, index) {
-              return _buildBannerSlide(_banners[index], widget.isDark);
+              return Container(
+                color: _banners[index].backgroundColor ?? const Color(0xFFC2DAD5),
+                child: _buildBannerSlide(_banners[index], widget.isDark),
+              );
             },
           ),
 
@@ -210,6 +215,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
                 height: 1.1,
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 6),
@@ -218,12 +224,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
               textAlign: content.imageOnRight
                   ? TextAlign.left
                   : TextAlign.right,
-              style: TextStyle(
-                color: isDark
-                    ? AppColors.darkTextBody
-                    : AppColors.lightTextBody,
-                fontSize: 11,
-              ),
+              style: const TextStyle(color: Colors.black54, fontSize: 11),
             ),
             const SizedBox(height: 12),
             SizedBox(

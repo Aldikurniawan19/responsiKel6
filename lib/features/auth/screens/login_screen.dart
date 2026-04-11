@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'HotDiee',
+                    'W3Cart',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

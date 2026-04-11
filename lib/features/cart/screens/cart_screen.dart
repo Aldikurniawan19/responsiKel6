@@ -22,8 +22,7 @@ class _CartScreenState extends State<CartScreen> {
     CartItem(
       quantity: 1,
       product: Product(
-        imageUrl:
-            'assets/images/1.jpg',
+        imageUrl: 'assets/images/1.jpg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -43,8 +42,7 @@ class _CartScreenState extends State<CartScreen> {
     CartItem(
       quantity: 1,
       product: Product(
-        imageUrl:
-            'assets/images/1.jpg',
+        imageUrl: 'assets/images/8.jpeg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -64,8 +62,7 @@ class _CartScreenState extends State<CartScreen> {
     CartItem(
       quantity: 1,
       product: Product(
-        imageUrl:
-            'assets/images/1.jpg',
+        imageUrl: 'assets/images/4.jpeg',
         category: 'Tshirt',
         brand: 'Peter England Casual',
         title: 'Peter Longline Pure Cotten Tshirt',
@@ -164,7 +161,7 @@ class _CartScreenState extends State<CartScreen> {
           ? AppColors.darkBackground
           : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -182,6 +179,15 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Column(
         children: [

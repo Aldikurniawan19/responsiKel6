@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: isDark ? Colors.white : Colors.black,
           ),
         ),
-        centerTitle: false,
+        centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(
@@ -178,9 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  LoadingPageRoute(
-                    page: const OnboardingScreen(),
-                  ),
+                  LoadingPageRoute(page: const OnboardingScreen()),
                   (route) => false,
                 );
               },

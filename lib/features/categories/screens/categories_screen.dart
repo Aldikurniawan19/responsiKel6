@@ -41,9 +41,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       imageUrl: 'assets/images/5.jpeg',
     ),
     CategoryModel(
-      title: 'Sunglasses',
-      itemCount: 100,
-      backgroundColorValue: 0xFFFFFF,
+      title: 'Accessories',
+      itemCount: 85,
+      backgroundColorValue: 0xFFF5E6CC,
       imageUrl: 'assets/images/6.jpeg',
     ),
   ];

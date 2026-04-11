@@ -28,9 +28,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 28,
-                    backgroundImage: AssetImage(
-                      'assets/images/profil.png',
-                    ),
+                    backgroundImage: AssetImage('assets/images/profil.png'),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -114,9 +112,7 @@ class AppDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          LoadingPageRoute(
-                            page: const CartScreen(),
-                          ),
+                          LoadingPageRoute(page: const CartScreen()),
                         );
                       },
                     ),
@@ -139,9 +135,7 @@ class AppDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(
                           context,
-                          LoadingPageRoute(
-                            page: const OnboardingScreen(),
-                          ),
+                          LoadingPageRoute(page: const OnboardingScreen()),
                           (route) => false,
                         );
                       },
@@ -208,7 +202,7 @@ class AppDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'HotDiee Fashion Store',
+                    'W3Cart Fashion Store',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
