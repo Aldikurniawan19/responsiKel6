@@ -114,6 +114,11 @@ flutter build apk
 ## 👥 Tim Pengembang
 
 **Kelompok 6** — Responsi Aplikasi Perangkat Bergerak & Paraktik
+- 5230311013	Aldi kurniawan
+- 5230311043	Wimbo sedayu
+- 5230311053	Muhammad Vito Pratama
+- 5230311069	Imsida Oktavia Putri Nabilah
+- 5230311072	Lailatul Mukaromah
 
 ## 📄 Lisensi
 
