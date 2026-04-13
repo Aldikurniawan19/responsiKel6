@@ -5,6 +5,7 @@ import '../../onboarding/screens/onboarding_screen.dart';
 import '../../../screens/main_screen.dart';
 import 'edit_profile.dart';
 import 'saved_addresses.dart';
+import '../../coupons/screens/coupons_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -141,6 +142,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Icons.card_giftcard,
                     'Coupons',
                     isDark,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CouponsScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
