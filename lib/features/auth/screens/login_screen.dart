@@ -4,6 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import 'register_screen.dart';
 import '../../../screens/main_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -97,26 +98,29 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               // Forgot Password Row
-              Row(
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Forgot password?',
-                    style: TextStyle(
-                      color: isDark ? Colors.white : Colors.black,
+                  Text("Forgot password?"),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Reset here",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const Text(
-                    'Reset here',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  )
                 ],
               ),
-
-              const SizedBox(height: 60),
 
               // Register Now Section
               Text(
