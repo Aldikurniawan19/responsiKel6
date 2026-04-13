@@ -4,8 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../../screens/main_screen.dart';
 import 'edit_profile.dart';
-import 'saved_addresses.dart'; 
-
+import 'saved_addresses.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -64,9 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const CircleAvatar(
                   radius: 36,
-                  backgroundImage: AssetImage(
-                    'assets/images/profil.png',
-                  ),
+                  backgroundImage: AssetImage('assets/images/profil.png'),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -196,7 +193,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               },
             ),
-            _buildSettingsTile(Icons.text_fields, 'Select Language', isDark),
+            _buildSettingsTile(
+              Icons.text_fields,
+              'Select Language',
+              isDark,
+              onTap: () {
+                _showLanguageDialog(context, isDark);
+              },
+            ),
             _buildSettingsTile(
               Icons.notifications_none,
               'Notification Setting',
@@ -266,6 +270,129 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  //Baru
+  void _showLanguageDialog(BuildContext context, bool isDark) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 24,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+              left: 24,
+              right: 24,
+              bottom: 8,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Sesuaikan tinggi dengan konten
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header Dialog (Judul & Tombol Close)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Language',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : Colors.black87,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => Navigator.pop(context), // Tutup dialog
+                      child: Icon(
+                        Icons.close,
+                        color: isDark ? Colors.white : Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Daftar Bahasa (Menggunakan Emoji Bendera)
+                _buildLanguageItem(context, '🇮🇳', 'Indian', isDark),
+                _buildLanguageItem(context, '🇺🇸', 'English', isDark),
+                _buildLanguageItem(context, '🇩🇪', 'German', isDark),
+                _buildLanguageItem(context, '🇮🇹', 'Italian', isDark),
+                _buildLanguageItem(
+                  context,
+                  '🇪🇸',
+                  'Spanish',
+                  isDark,
+                  isLast: true,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLanguageItem(
+    BuildContext context,
+    String flagEmoji,
+    String language,
+    bool isDark, {
+    bool isLast = false,
+  }) {
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Text(
+            flagEmoji,
+            style: const TextStyle(fontSize: 24),
+          ), // Emoji bendera
+          title: Text(
+            language,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: isDark ? Colors.white : Colors.black87,
+            ),
+          ),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: isDark ? Colors.white54 : Colors.black87,
+          ),
+          onTap: () {
+            // Tutup dialog
+            Navigator.pop(context);
+            // Tampilkan notifikasi
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  '$language selected',
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: AppColors.primary,
+                duration: const Duration(seconds: 1),
+              ),
+            );
+          },
+        ),
+        // Garis pemisah tipis, kecuali untuk item terakhir
+        if (!isLast)
+          Divider(
+            color: isDark ? AppColors.darkInputBorder : Colors.grey.shade200,
+            height: 1,
+          ),
+      ],
+    );
+  }
+
+  //end baru
 
   // Helper Widget: Baris Account Settings
   Widget _buildSettingsTile(
