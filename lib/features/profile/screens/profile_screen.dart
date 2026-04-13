@@ -6,6 +6,7 @@ import '../../../screens/main_screen.dart';
 import 'edit_profile.dart';
 import 'saved_addresses.dart';
 import '../../coupons/screens/coupons_screen.dart';
+import '../../orders/screens/orders_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -119,6 +120,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Icons.inventory_2_outlined,
                     'Order',
                     isDark,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OrdersScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
