@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../address_model.dart';
 import 'add_address.dart';
+import '../../../core/theme/app_colors.dart';
 
 class SavedAddressesScreen extends StatefulWidget {
   const SavedAddressesScreen({super.key});
@@ -25,16 +26,27 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
 
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
           "Address",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: isDark ? Colors.white : Colors.black),
         ),
       ),
 
@@ -43,7 +55,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ===== ADD BUTTON =====
             GestureDetector(
               onTap: () {
@@ -62,7 +73,10 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFF1E7A5C), width: 1.5),
+                  border: Border.all(
+                    color: const Color(0xFF1E7A5C),
+                    width: 1.5,
+                  ),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: const Text(
@@ -96,22 +110,22 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
   // ===== CARD UI =====
   Widget _card(AddressModel a) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        color: isDark ? AppColors.darkCardBackground : Colors.white,
+        border: Border.all(
+          color: isDark ? AppColors.darkCardBackground : Colors.white,
+        ),
+        borderRadius: BorderRadius.circular(6),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 6,
-          ),
+          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // HEADER
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
@@ -170,13 +184,10 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
               ),
               Container(width: 1, height: 40, color: Colors.grey.shade300),
               Expanded(
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text("Edit"),
-                ),
+                child: TextButton(onPressed: () {}, child: const Text("Edit")),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -199,9 +210,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
   // ===== TEXT LINE =====
   Widget _line(String text) {
-    return Text(
-      text,
-      style: const TextStyle(color: Colors.grey),
-    );
+    return Text(text, style: const TextStyle(color: Colors.grey));
   }
 }

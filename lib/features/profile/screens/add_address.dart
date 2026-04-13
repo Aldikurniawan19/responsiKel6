@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../address_model.dart';
+import '../../../core/theme/app_colors.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final void Function(AddressModel newAddress) onSave;
@@ -27,8 +28,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       label: _selectedLabel.toUpperCase(),
       street: _addressController.text,
       area: _localityController.text,
-      cityZip:
-          '${_cityController.text} - ${_pinCodeController.text}',
+      cityZip: '${_cityController.text} - ${_pinCodeController.text}',
       state: _stateController.text,
       mobile: _mobileController.text,
     );
@@ -39,120 +39,138 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    return Scaffold(
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.lightBackground, // Menyatu dengan background body
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: const Text(
+        centerTitle: false, // Judul rata kiri mengikuti desain gambar
+        titleSpacing: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
           "Add delivery address",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: isDark ? Colors.white : Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // Semua elemen rata kiri
                 children: [
+                  const SizedBox(height: 10),
 
                   // ===== CONTACT DETAILS =====
-                  _sectionTitle("Contact Details"),
-                  _card([
-                    _label("Full Name"),
-                    _input(_fullNameController, "Type Your Name"),
+                  _sectionTitle("Contact Details", isDark),
+                  _label("Full Name", isDark),
+                  _input(_fullNameController, "Type Your Name", isDark),
 
-                    const SizedBox(height: 16),
+                  _label("Mobile No.", isDark),
+                  _input(_mobileController, "Type Your mobile no.", isDark),
 
-                    _label("Mobile No."),
-                    _input(_mobileController, "Type Your mobile no."),
-                  ]),
+                  const SizedBox(height: 16),
 
                   // ===== ADDRESS =====
-                  _sectionTitle("Address"),
-                  _card([
-                    _label("Pin Code"),
-                    _input(_pinCodeController, "Pin Code"),
+                  _sectionTitle("Address", isDark),
 
-                    const SizedBox(height: 16),
+                  _label("Pin Code", isDark),
+                  _input(_pinCodeController, "Pin Code", isDark),
 
-                    _label("Address"),
-                    _input(_addressController, "Address"),
+                  _label("Address", isDark),
+                  _input(_addressController, "Address", isDark),
 
-                    const SizedBox(height: 16),
+                  _label("Locality/Town", isDark),
+                  _input(_localityController, "Locality/Town", isDark),
 
-                    _label("Locality/Town"),
-                    _input(_localityController, "Locality/Town"),
-
-                    const SizedBox(height: 16),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _label("City/District"),
-                              _input(_cityController, "City/District"),
-                            ],
-                          ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _label("City/District", isDark),
+                            _input(_cityController, "City/District", isDark),
+                          ],
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _label("State"),
-                              _input(_stateController, "State"),
-                            ],
-                          ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _label("State", isDark),
+                            _input(_stateController, "State", isDark),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
 
-                    const SizedBox(height: 20),
+                  const SizedBox(height: 24),
 
-                    _label("Save Address As"),
-                    const SizedBox(height: 10),
-
-                    Row(
-                      children: [
-                        _chip("Home"),
-                        const SizedBox(width: 10),
-                        _chip("Work"),
-                      ],
-                    ),
-                  ]),
+                  // (Opsional) Label Home/Work tetap saya pertahankan jika dibutuhkan
+                  _label("Save Address As", isDark),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      _chip("Home", isDark),
+                      const SizedBox(width: 12),
+                      _chip("Work", isDark),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
           ),
 
-          // ===== BUTTON =====
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: const Color(0xFFF5F5F5),
-            child: SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: _onSave,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1E7A5C),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+          // ===== BUTTON SAVE ADDRESS =====
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: ElevatedButton(
+                  onPressed: _onSave,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ), // Bentuk kotak dengan sudut sedikit tumpul
                   ),
-                ),
-                child: const Text(
-                  "Save Address",
-                  style: TextStyle(fontSize: 16),
+                  child: const Text(
+                    "Save Address",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -160,78 +178,91 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   // ===== UI COMPONENTS =====
 
-  Widget _sectionTitle(String text) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
-      alignment: Alignment.centerLeft,
+  Widget _sectionTitle(String text, bool isDark) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: 18,
+          color: isDark ? Colors.white : Colors.black87,
         ),
       ),
     );
   }
 
-  Widget _card(List<Widget> children) {
-    return Container(
-      width: double.infinity,
-      color: Colors.white,
-      padding: const EdgeInsets.all(16),
-      child: Column(children: children),
-    );
-  }
-
-  Widget _label(String text) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.w600),
+  Widget _label(String text, bool isDark) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+        color: isDark ? Colors.white : Colors.black87,
       ),
     );
   }
 
-  Widget _input(TextEditingController c, String hint) {
+  Widget _input(TextEditingController c, String hint, bool isDark) {
     return Container(
-      margin: const EdgeInsets.only(top: 6),
+      margin: const EdgeInsets.only(
+        top: 8,
+        bottom: 20,
+      ), // Memberi jarak antara input dan label berikutnya
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F7F7),
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(4),
+        // Warna isi kolom input (Lebih terang sedikit dari background utama)
+        color: isDark ? const Color(0xFF1C1E2D) : const Color(0xFFF5F6F8),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: TextField(
         controller: c,
+        style: TextStyle(
+          color: isDark ? Colors.white : Colors.black,
+          fontSize: 15,
+        ),
         decoration: InputDecoration(
           hintText: hint,
-          border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          hintStyle: TextStyle(
+            color: isDark ? Colors.white38 : Colors.black38,
+            fontSize: 14,
+          ),
+          border: InputBorder.none, // Menghilangkan garis tepi (border)
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
         ),
       ),
     );
   }
 
-  Widget _chip(String label) {
+  Widget _chip(String label, bool isDark) {
     final isSelected = _selectedLabel == label;
 
     return GestureDetector(
       onTap: () => setState(() => _selectedLabel = label),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          color: isSelected
+              ? AppColors.primary.withOpacity(0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: isSelected ? const Color(0xFF1E7A5C) : Colors.grey,
-            width: isSelected ? 1.5 : 1,
+            color: isSelected
+                ? AppColors.primary
+                : (isDark ? Colors.white24 : Colors.grey.shade300),
+            width: 1.5,
           ),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? const Color(0xFF1E7A5C) : Colors.grey,
+            color: isSelected
+                ? AppColors.primary
+                : (isDark ? Colors.white70 : Colors.black54),
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontSize: 14,
           ),
         ),
       ),

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_colors.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() =>
-      _ResetPasswordScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ResetPasswordScreenState
-    extends State<ResetPasswordScreen> {
-  final TextEditingController passwordController =
-      TextEditingController();
-  final TextEditingController confirmController =
-      TextEditingController();
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
 
   bool isHidden1 = true;
   bool isHidden2 = true;
@@ -27,14 +24,17 @@ class _ResetPasswordScreenState
 
   @override
   Widget build(BuildContext context) {
-    Color primary = const Color(0xFF1B7F5C);
+    // Mengecek apakah perangkat sedang dalam mode gelap
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Background yang beradaptasi dengan mode
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       body: SafeArea(
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               const SizedBox(height: 30),
@@ -43,55 +43,77 @@ class _ResetPasswordScreenState
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.inventory_2_outlined,
-                      color: primary, size: 30),
+                  const Icon(
+                    Icons.inventory_2_outlined,
+                    color: AppColors.primary,
+                    size: 30,
+                  ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     "W3Cart",
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 20,
+                      color: isDark
+                          ? Colors.white
+                          : Colors.black, // Teks dinamis
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
 
               const SizedBox(height: 30),
 
-              const Text(
+              Text(
                 "Reset Your Password",
                 style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                  fontSize: 24,
+                  color: isDark ? Colors.white : Colors.black, // Teks dinamis
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               const SizedBox(height: 10),
 
-              Text(
-                "Your New Password Must Be Different Form Previously Used Password.",
+              const Text(
+                "Your New Password Must Be Different From Previously Used Password.",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: primary),
+                style: TextStyle(color: AppColors.primary),
               ),
 
               const SizedBox(height: 30),
 
               // NEW PASSWORD
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
-                child: Text("New Password"),
+                child: Text(
+                  "New Password",
+                  style: TextStyle(
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
 
               TextField(
                 controller: passwordController,
                 obscureText: isHidden1,
+                style: TextStyle(
+                  color: isDark ? Colors.white : Colors.black,
+                ), // Warna input ketikan
                 decoration: InputDecoration(
                   hintText: "Type Password Here",
+                  hintStyle: TextStyle(
+                    color: isDark ? Colors.white38 : Colors.black38,
+                  ),
+                  filled: true,
+                  fillColor: isDark
+                      ? AppColors.darkInputBackground
+                      : Colors.white,
                   suffixIcon: IconButton(
                     icon: Icon(
-                      isHidden1
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: primary,
+                      isHidden1 ? Icons.visibility_off : Icons.visibility,
+                      color: AppColors.primary,
                     ),
                     onPressed: () {
                       setState(() {
@@ -100,11 +122,14 @@ class _ResetPasswordScreenState
                     },
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.grey.shade300),
+                    borderSide: BorderSide(
+                      color: isDark
+                          ? AppColors.darkInputBorder
+                          : Colors.grey.shade300,
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: primary),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.primary),
                   ),
                 ),
               ),
@@ -112,23 +137,36 @@ class _ResetPasswordScreenState
               const SizedBox(height: 20),
 
               // CONFIRM PASSWORD
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Confirm Password"),
+                child: Text(
+                  "Confirm Password",
+                  style: TextStyle(
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
 
               TextField(
                 controller: confirmController,
                 obscureText: isHidden2,
+                style: TextStyle(
+                  color: isDark ? Colors.white : Colors.black,
+                ), // Warna input ketikan
                 decoration: InputDecoration(
                   hintText: "Type Password Here",
+                  hintStyle: TextStyle(
+                    color: isDark ? Colors.white38 : Colors.black38,
+                  ),
+                  filled: true,
+                  fillColor: isDark
+                      ? AppColors.darkInputBackground
+                      : Colors.white,
                   suffixIcon: IconButton(
                     icon: Icon(
-                      isHidden2
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: primary,
+                      isHidden2 ? Icons.visibility_off : Icons.visibility,
+                      color: AppColors.primary,
                     ),
                     onPressed: () {
                       setState(() {
@@ -137,11 +175,14 @@ class _ResetPasswordScreenState
                     },
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.grey.shade300),
+                    borderSide: BorderSide(
+                      color: isDark
+                          ? AppColors.darkInputBorder
+                          : Colors.grey.shade300,
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: primary),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.primary),
                   ),
                 ),
               ),
@@ -154,20 +195,26 @@ class _ResetPasswordScreenState
                 height: 55,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
+                    backgroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                   onPressed: () {
-                    if (passwordController.text ==
-                        confirmController.text) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(
-                        const SnackBar(
-                            content:
-                                Text("Password Updated")),
+                    if (passwordController.text == confirmController.text) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Password Updated")),
                       );
                     }
                   },
-                  child: const Text("Submit"),
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ), // Pastikan putih
+                  ),
                 ),
               ),
 
@@ -175,12 +222,14 @@ class _ResetPasswordScreenState
 
               GestureDetector(
                 onTap: () {
-                  Navigator.popUntil(
-                      context, (route) => route.isFirst);
+                  Navigator.popUntil(context, (route) => route.isFirst);
                 },
-                child: Text(
+                child: const Text(
                   "Back to Login",
-                  style: TextStyle(color: primary),
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
 
