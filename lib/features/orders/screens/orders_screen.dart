@@ -21,8 +21,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       price: 47.6,
       status: 'Completed',
       statusDescription: 'Order Received by [Louis Simatupang]',
-      imageUrl:
-          'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400',
+      imageUrl: 'assets/images/1.jpg',
     ),
     OrderModel(
       id: '#12451245',
@@ -32,8 +31,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       price: 47.6,
       status: 'Canceled',
       statusDescription: 'Reach on payment due date',
-      imageUrl:
-          'https://images.unsplash.com/photo-1520975954732-57dd22299614?q=80&w=400',
+      imageUrl: 'assets/images/2.jpg',
     ),
     OrderModel(
       id: '#12451245',
@@ -43,8 +41,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       price: 50.6,
       status: 'On Delivery',
       statusDescription: 'On the way by Courir [H. Stefanus]',
-      imageUrl:
-          'https://images.unsplash.com/photo-1603217192634-6116899ff81b?q=80&w=400',
+      imageUrl: 'assets/images/3.jpg',
     ),
   ];
 

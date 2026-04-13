@@ -152,7 +152,7 @@ class OrderCardWidget extends StatelessWidget {
           // --- KOLOM KANAN (Gambar Produk) ---
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.network(
+            child: Image.asset(
               order.imageUrl,
               width: 70,
               height: 70,
