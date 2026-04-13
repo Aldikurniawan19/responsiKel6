@@ -3,6 +3,9 @@ import '../../../core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../../screens/main_screen.dart';
+import 'edit_profile.dart';
+import 'saved_addresses.dart'; 
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -63,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   radius: 36,
                   backgroundImage: AssetImage(
                     'assets/images/profil.png',
-                  ), // Foto profil mock
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -96,7 +99,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Icons.edit_outlined,
                     color: AppColors.primary,
                   ),
-                  onPressed: () {},
+                  // Navigasi ke EditProfileScreen
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -158,11 +169,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
 
-            _buildSettingsTile(Icons.person_outline, 'Edit Profile', isDark),
+            // Navigasi ke EditProfileScreen dari settings tile
+            _buildSettingsTile(
+              Icons.person_outline,
+              'Edit Profile',
+              isDark,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfileScreen(),
+                  ),
+                );
+              },
+            ),
             _buildSettingsTile(
               Icons.location_on_outlined,
               'Saved Addresses',
               isDark,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SavedAddressesScreen(),
+                  ),
+                );
+              },
             ),
             _buildSettingsTile(Icons.text_fields, 'Select Language', isDark),
             _buildSettingsTile(
