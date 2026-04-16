@@ -42,7 +42,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       tag: '#WINTER SALE',
       offer: '35% Off',
       description: 'Discover our latest Products',
-      backgroundColor: const Color(0xFFC2DAD5),
+      backgroundColor: const Color(0xFFF5E6CC),
     ),
     BannerContent(
       imageUrl: 'assets/images/9b.png',
@@ -57,7 +57,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       tag: '#FLASH SALE',
       offer: '10% Off',
       description: 'Hurry Up! Limited Stock',
-      backgroundColor: const Color(0xFFC2DAD5),
+      backgroundColor: const Color(0xFFF5E6CC),
     ),
   ];
 
@@ -143,7 +143,8 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             itemCount: _banners.length,
             itemBuilder: (context, index) {
               return Container(
-                color: _banners[index].backgroundColor ?? const Color(0xFFC2DAD5),
+                color:
+                    _banners[index].backgroundColor ?? const Color(0xFFC2DAD5),
                 child: _buildBannerSlide(_banners[index], widget.isDark),
               );
             },

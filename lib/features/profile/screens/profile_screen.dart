@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Thomas Djono',
+                        'Paijo',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -291,122 +291,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   //Baru
   void _showLanguageDialog(BuildContext context, bool isDark) {
-    showDialog(
+    final languages = [
+      {'flag': '🇮🇩', 'name': 'Indonesian'},
+      {'flag': '🇺🇸', 'name': 'English'},
+      {'flag': '🇮🇳', 'name': 'Indian'},
+      {'flag': '🇩🇪', 'name': 'German'},
+      {'flag': '🇮🇹', 'name': 'Italian'},
+      {'flag': '🇪🇸', 'name': 'Spanish'},
+    ];
+
+    showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
-          insetPadding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 24,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 24,
-              right: 24,
-              bottom: 8,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // Sesuaikan tinggi dengan konten
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Header Dialog (Judul & Tombol Close)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Language',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black87,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => Navigator.pop(context), // Tutup dialog
-                      child: Icon(
-                        Icons.close,
-                        color: isDark ? Colors.white : Colors.black87,
-                      ),
-                    ),
-                  ],
+      backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.only(top: 12, bottom: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Drag handle
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? AppColors.darkInputBorder
+                      : AppColors.lightInputBorder,
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                const SizedBox(height: 16),
-
-                // Daftar Bahasa (Menggunakan Emoji Bendera)
-                _buildLanguageItem(context, '🇮🇳', 'Indian', isDark),
-                _buildLanguageItem(context, '🇺🇸', 'English', isDark),
-                _buildLanguageItem(context, '🇩🇪', 'German', isDark),
-                _buildLanguageItem(context, '🇮🇹', 'Italian', isDark),
-                _buildLanguageItem(
-                  context,
-                  '🇪🇸',
-                  'Spanish',
-                  isDark,
-                  isLast: true,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLanguageItem(
-    BuildContext context,
-    String flagEmoji,
-    String language,
-    bool isDark, {
-    bool isLast = false,
-  }) {
-    return Column(
-      children: [
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Text(
-            flagEmoji,
-            style: const TextStyle(fontSize: 24),
-          ), // Emoji bendera
-          title: Text(
-            language,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: isDark ? Colors.white : Colors.black87,
-            ),
-          ),
-          trailing: Icon(
-            Icons.chevron_right,
-            color: isDark ? Colors.white54 : Colors.black87,
-          ),
-          onTap: () {
-            // Tutup dialog
-            Navigator.pop(context);
-            // Tampilkan notifikasi
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  '$language selected',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                backgroundColor: AppColors.primary,
-                duration: const Duration(seconds: 1),
               ),
-            );
-          },
+            ),
+            const SizedBox(height: 20),
+
+            // Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                'Select Language',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Daftar bahasa
+            ...languages.asMap().entries.map((entry) {
+              final i = entry.key;
+              final lang = entry.value;
+              final isLast = i == languages.length - 1;
+              return Column(
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                    leading: Text(
+                      lang['flag']!,
+                      style: const TextStyle(fontSize: 24),
+                    ),
+                    title: Text(
+                      lang['name']!,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.white : Colors.black87,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: isDark ? Colors.white38 : Colors.black38,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '${lang['name']} selected',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: AppColors.primary,
+                          duration: const Duration(seconds: 1),
+                        ),
+                      );
+                    },
+                  ),
+                  if (!isLast)
+                    Divider(
+                      indent: 24,
+                      endIndent: 24,
+                      height: 1,
+                      color: isDark
+                          ? AppColors.darkInputBorder
+                          : Colors.grey.shade200,
+                    ),
+                ],
+              );
+            }),
+          ],
         ),
-        // Garis pemisah tipis, kecuali untuk item terakhir
-        if (!isLast)
-          Divider(
-            color: isDark ? AppColors.darkInputBorder : Colors.grey.shade200,
-            height: 1,
-          ),
-      ],
+      ),
     );
   }
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hotdie/core/widgets/page_transition.dart';
 import '../../../core/theme/app_colors.dart';
 import '../models/order_model.dart';
 import '../widgets/order_card_widget.dart';
+import '../../search/screens/search_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -80,7 +82,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 Icons.search,
                 color: isDark ? Colors.white : Colors.black,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  LoadingPageRoute(page: const SearchScreen()),
+                );
+              },
             ),
           ],
           // --- KONFIGURASI TAB BAR ---

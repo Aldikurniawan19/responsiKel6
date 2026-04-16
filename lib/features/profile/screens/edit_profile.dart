@@ -9,14 +9,18 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController _mobileController =
-      TextEditingController(text: '0123456789');
-  final TextEditingController _fullNameController =
-      TextEditingController(text: 'John Doe');
-  final TextEditingController _emailController =
-      TextEditingController(text: 'Example@gmail.com');
-  final TextEditingController _locationController =
-      TextEditingController(text: 'LH-12, East Wally USA');
+  final TextEditingController _mobileController = TextEditingController(
+    text: '0123456789',
+  );
+  final TextEditingController _fullNameController = TextEditingController(
+    text: 'John Doe',
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: 'Example@gmail.com',
+  );
+  final TextEditingController _locationController = TextEditingController(
+    text: 'LH-12, East Wally USA',
+  );
 
   @override
   void dispose() {
@@ -32,7 +36,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : const Color(0xFFF2F2F2),
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : const Color(0xFFF2F2F2),
 
       // --- APPBAR ---
       appBar: AppBar(
@@ -81,7 +87,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(height: 8),
                   _buildTextField(
                     controller: _fullNameController,
-                    hintText: 'John Doe',
+                    hintText: 'Paijo',
                     keyboardType: TextInputType.name,
                     isDark: isDark,
                   ),
@@ -130,10 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 child: const Text(
                   'Save',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
             ),

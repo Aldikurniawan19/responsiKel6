@@ -201,10 +201,30 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (passwordController.text == confirmController.text) {
+                    if (passwordController.text.isEmpty ||
+                        confirmController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Password Updated")),
+                        const SnackBar(
+                          content: Text("Password tidak boleh kosong"),
+                          backgroundColor: Colors.red,
+                        ),
                       );
+                    } else if (passwordController.text !=
+                        confirmController.text) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Password tidak cocok"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Password berhasil diubah"),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.popUntil(context, (route) => route.isFirst);
                     }
                   },
                   child: const Text(
@@ -213,7 +233,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                    ), // Pastikan putih
+                    ),
                   ),
                 ),
               ),

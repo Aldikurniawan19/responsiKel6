@@ -6,6 +6,7 @@ import '../../../screens/main_screen.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../products/screens/products_screen.dart';
 import '../../cart/screens/cart_screen.dart';
+import '../../orders/screens/orders_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -36,7 +37,7 @@ class AppDrawer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'John Doe',
+                          'Paijo',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -102,7 +103,19 @@ class AppDrawer extends StatelessWidget {
                         MainScreen.mainKey.currentState?.switchTab(2);
                       },
                     ),
-                    _buildMenuItem(context, Icons.sync, 'Orders', isDark),
+                    _buildMenuItem(
+                      context,
+                      Icons.sync,
+                      'Orders',
+                      isDark,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          LoadingPageRoute(page: const OrdersScreen()),
+                        );
+                      },
+                    ),
                     _buildMenuItem(
                       context,
                       Icons.shopping_cart_outlined,
