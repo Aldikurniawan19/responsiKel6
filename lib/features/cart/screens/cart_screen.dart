@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
+import '../../../core/widgets/page_transition.dart';
+import '../../profile/screens/add_address.dart';
 import '../widgets/cart_item_widget.dart';
 
 class CartScreen extends StatefulWidget {
@@ -480,7 +482,16 @@ class _CartScreenState extends State<CartScreen> {
                     height: 54,
                     width: 140,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          LoadingPageRoute(
+                            page: AddAddressScreen(
+                              onSave: (_) {},
+                            ),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
                         shape: RoundedRectangleBorder(
