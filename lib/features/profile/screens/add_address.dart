@@ -47,8 +47,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           : AppColors.lightBackground,
       appBar: AppBar(
         backgroundColor: isDark
-            ? AppColors.darkBackground
-            : AppColors.lightBackground, // Menyatu dengan background body
+            ? AppColors.darkCardBackground
+            : Colors.white, // Menyatu dengan background body
         elevation: 0,
         centerTitle: false, // Judul rata kiri mengikuti desain gambar
         titleSpacing: 0,
@@ -205,19 +205,28 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   Widget _input(TextEditingController c, String hint, bool isDark) {
     return Container(
-      margin: const EdgeInsets.only(
-        top: 8,
-        bottom: 20,
-      ), // Memberi jarak antara input dan label berikutnya
+      margin: const EdgeInsets.only(top: 8, bottom: 20),
       decoration: BoxDecoration(
-        // Warna isi kolom input (Lebih terang sedikit dari background utama)
-        color: isDark ? const Color(0xFF1C1E2D) : const Color(0xFFF5F6F8),
-        borderRadius: BorderRadius.circular(6),
+        color: isDark ? const Color(0xFF1C1E2D) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isDark ? AppColors.darkInputBorder : Colors.grey.shade300,
+          width: 1.2,
+        ),
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: TextField(
         controller: c,
         style: TextStyle(
-          color: isDark ? Colors.white : Colors.black,
+          color: isDark ? Colors.white : Colors.black87,
           fontSize: 15,
         ),
         decoration: InputDecoration(
@@ -226,7 +235,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             color: isDark ? Colors.white38 : Colors.black38,
             fontSize: 14,
           ),
-          border: InputBorder.none, // Menghilangkan garis tepi (border)
+          border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 16,
