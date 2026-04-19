@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../address_model.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../payment/screens/payment_screen.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final void Function(AddressModel newAddress) onSave;
@@ -34,7 +35,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     );
 
     widget.onSave(newAddress);
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PaymentScreen()),
+    );
   }
 
   @override
