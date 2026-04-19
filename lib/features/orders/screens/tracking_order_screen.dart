@@ -161,7 +161,7 @@ class TrackingOrderScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "2",
+                                    "5",
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
