@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
-import 'netbanking_screen.dart'; // Tambahkan import halaman netbanking
+import 'netbanking_screen.dart';
 import '../../orders/screens/tracking_order_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -11,7 +11,6 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  // Default terbuka di Netbanking (index 4) agar Anda langsung melihat hasilnya
   int _expandedIndex = 4;
   String _selectedCardBrand = "VISA";
 
@@ -94,7 +93,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // ===== 2. PAYMENT METHODS =====
                   _buildPaymentAccordion(
                     0,
                     Icons.money,
@@ -213,7 +211,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
           ),
 
-          // ===== 5. BOTTOM PAY BAR =====
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 24.0,
@@ -295,10 +292,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // =========================================================================
-  // HELPER WIDGETS
-  // =========================================================================
-
   Widget _buildPaymentAccordion(
     int index,
     IconData icon,
@@ -374,7 +367,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return const SizedBox();
   }
 
-  // ===== KONTEN KHUSUS NETBANKING (BARU) =====
   Widget _buildNetbankingContent(bool isDark) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -388,7 +380,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
             height: 48,
             child: OutlinedButton(
               onPressed: () {
-                // Menuju halaman pencarian bank
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -405,7 +396,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ),
               child: const Text(
-                "Netbanking", // (Saya benarkan typo dari "Netbannking" di gambar Anda)
+                "Netbanking",
                 style: TextStyle(
                   fontSize: 15,
                   color: AppColors.primary,
@@ -419,7 +410,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // ===== KONTEN KHUSUS WALLET =====
   Widget _buildWalletContent(bool isDark) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -498,7 +488,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // ===== KONTEN KHUSUS UPI =====
   Widget _buildUpiContent(bool isDark) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -596,7 +585,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  // ===== KONTEN KHUSUS CREDIT CARD =====
   Widget _buildCreditCardContent(bool isDark) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-/// Custom Hexagon Shape yang rounded — dipakai untuk FAB cart di tengah navbar.
-/// Sekarang hanya ada satu definisi di sini, tidak perlu copy-paste di setiap screen.
 class RoundedHexagonBorder extends ShapeBorder {
   const RoundedHexagonBorder();
 
@@ -20,11 +18,7 @@ class RoundedHexagonBorder extends ShapeBorder {
     final r = rect.shortestSide / 2;
     final cornerRadius = r * 0.25;
 
-    // 6 titik hexagon (flat-top, dirotasi 90°)
-    final angles = List.generate(
-      6,
-      (i) => (i * 60 - 90) * (pi / 180),
-    );
+    final angles = List.generate(6, (i) => (i * 60 - 90) * (pi / 180));
     final points = angles
         .map((a) => Offset(cx + r * cos(a), cy + r * sin(a)))
         .toList();

@@ -53,7 +53,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // --- APPBAR ---
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
@@ -92,7 +91,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ],
       ),
 
-      // --- BODY ---
       body: ListView.builder(
         padding: const EdgeInsets.all(24.0),
         itemCount: _categories.length,
@@ -103,8 +101,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               Navigator.push(
                 context,
                 LoadingPageRoute(
-                  page:
-                      ProductsScreen(categoryTitle: _categories[index].title),
+                  page: ProductsScreen(categoryTitle: _categories[index].title),
                 ),
               );
 

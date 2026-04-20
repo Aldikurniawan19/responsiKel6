@@ -21,7 +21,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // --- APPBAR ---
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
@@ -54,13 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
 
-      // --- BODY ---
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. AREA INFO USER
             Row(
               children: [
                 const CircleAvatar(
@@ -98,7 +95,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Icons.edit_outlined,
                     color: AppColors.primary,
                   ),
-                  // Navigasi ke EditProfileScreen
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -112,7 +108,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 30),
 
-            // 2. AREA QUICK ACTIONS (4 Kotak)
             Row(
               children: [
                 Expanded(
@@ -173,7 +168,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 40),
 
-            // 3. AREA ACCOUNT SETTINGS
             Text(
               'Account Settings',
               style: TextStyle(
@@ -184,7 +178,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Navigasi ke EditProfileScreen dari settings tile
             _buildSettingsTile(
               Icons.person_outline,
               'Edit Profile',
@@ -245,7 +238,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // Helper Widget: Kotak Quick Action
   Widget _buildQuickAction(
     IconData icon,
     String label,
@@ -289,7 +281,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  //Baru
   void _showLanguageDialog(BuildContext context, bool isDark) {
     final languages = [
       {'flag': '🇮🇩', 'name': 'Indonesian'},
@@ -312,7 +303,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Drag handle
             Center(
               child: Container(
                 width: 40,
@@ -327,7 +317,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
@@ -341,7 +330,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 8),
 
-            // Daftar bahasa
             ...languages.asMap().entries.map((entry) {
               final i = entry.key;
               final lang = entry.value;
@@ -398,9 +386,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  //end baru
-
-  // Helper Widget: Baris Account Settings
   Widget _buildSettingsTile(
     IconData icon,
     String title,

@@ -50,11 +50,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           ? AppColors.darkBackground
           : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: isDark
-            ? AppColors.darkCardBackground
-            : Colors.white, // Menyatu dengan background body
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
-        centerTitle: false, // Judul rata kiri mengikuti desain gambar
+        centerTitle: false,
         titleSpacing: 0,
         leading: IconButton(
           icon: Icon(
@@ -78,12 +76,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Semua elemen rata kiri
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
 
-                  // ===== CONTACT DETAILS =====
                   _sectionTitle("Contact Details", isDark),
                   _label("Full Name", isDark),
                   _input(_fullNameController, "Type Your Name", isDark),
@@ -93,7 +89,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                   const SizedBox(height: 16),
 
-                  // ===== ADDRESS =====
                   _sectionTitle("Address", isDark),
 
                   _label("Pin Code", isDark),
@@ -131,7 +126,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                   const SizedBox(height: 24),
 
-                  // (Opsional) Label Home/Work tetap saya pertahankan jika dibutuhkan
                   _label("Save Address As", isDark),
                   const SizedBox(height: 12),
                   Row(
@@ -147,7 +141,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
             ),
           ),
 
-          // ===== BUTTON SAVE ADDRESS =====
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -161,7 +154,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
-                    ), // Bentuk kotak dengan sudut sedikit tumpul
+                    ),
                   ),
                   child: const Text(
                     "Save Address",
@@ -179,8 +172,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       ),
     );
   }
-
-  // ===== UI COMPONENTS =====
 
   Widget _sectionTitle(String text, bool isDark) {
     return Padding(

@@ -235,7 +235,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
       ),
       body: Column(
         children: [
-          // --- FILTER BAR ---
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             decoration: BoxDecoration(
@@ -288,7 +287,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
             ),
           ),
 
-          // --- PRODUCT GRID ---
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16.0),
@@ -312,7 +310,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // --- ICON CHIP ---
   Widget _buildIconChip(
     IconData icon,
     bool isDark, {
@@ -368,7 +365,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // --- FILTER CHIP ---
   Widget _buildChip(
     String label,
     bool isDark, {
@@ -425,7 +421,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // 1. SORT BY
   void _showSortBottomSheet(bool isDark) {
     final sortOptions = [
       {'label': 'Recommended', 'icon': Icons.recommend_outlined},
@@ -511,7 +506,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // 2. FILTER (Price & Size)
   void _showFilterBottomSheet(bool isDark) {
     RangeValues range = const RangeValues(20, 150);
     List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -719,7 +713,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // 3. BRAND
   void _showBrandBottomSheet(bool isDark) {
     final brands = [
       'Peter England Casual',
@@ -821,7 +814,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  // 4. DISCOUNT
   void _showDiscountBottomSheet(bool isDark) {
     final discounts = [
       {'label': '10% and above', 'icon': Icons.local_offer_outlined},

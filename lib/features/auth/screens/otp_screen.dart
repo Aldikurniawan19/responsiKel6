@@ -25,7 +25,6 @@ class _OtpScreenState extends State<OtpScreen> {
     super.dispose();
   }
 
-  // OTP BOX (Sekarang menerima parameter isDark)
   Widget buildOtpBox(int index, bool isDark) {
     return SizedBox(
       width: 60,
@@ -39,13 +38,11 @@ class _OtpScreenState extends State<OtpScreen> {
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: isDark ? Colors.white : Colors.black,
-        ), // Angka OTP dinamis
+        ),
         decoration: InputDecoration(
           counterText: "",
           filled: true,
-          fillColor: isDark
-              ? AppColors.darkInputBackground
-              : Colors.white, // Latar kotak OTP dinamis
+          fillColor: isDark ? AppColors.darkInputBackground : Colors.white,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
@@ -58,11 +55,9 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
         ),
         onChanged: (value) {
-          // maju otomatis
           if (value.isNotEmpty && index < 3) {
             FocusScope.of(context).nextFocus();
           }
-          // mundur kalau dihapus
           if (value.isEmpty && index > 0) {
             FocusScope.of(context).previousFocus();
           }
@@ -73,11 +68,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Mengecek mode layar perangkat
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // Background yang beradaptasi dengan mode
       backgroundColor: isDark
           ? AppColors.darkBackground
           : AppColors.lightBackground,
@@ -88,7 +81,6 @@ class _OtpScreenState extends State<OtpScreen> {
             children: [
               const SizedBox(height: 30),
 
-              // LOGO
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -102,9 +94,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     "W3Cart",
                     style: TextStyle(
                       fontSize: 20,
-                      color: isDark
-                          ? Colors.white
-                          : Colors.black, // Teks dinamis
+                      color: isDark ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -117,7 +107,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 "Enter Code",
                 style: TextStyle(
                   fontSize: 24,
-                  color: isDark ? Colors.white : Colors.black, // Teks dinamis
+                  color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -132,18 +122,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
               const SizedBox(height: 30),
 
-              // OTP BOX
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  4,
-                  (i) => buildOtpBox(i, isDark),
-                ), // Mengirim parameter isDark
+                children: List.generate(4, (i) => buildOtpBox(i, isDark)),
               ),
 
               const Spacer(),
 
-              // BUTTON
               Row(
                 children: [
                   Container(
@@ -152,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     decoration: BoxDecoration(
                       color: isDark
                           ? AppColors.darkCardBackground
-                          : Colors.white, // Latar kotak back
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: isDark
@@ -203,7 +188,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                          ), // Teks putih
+                          ),
                         ),
                       ),
                     ),

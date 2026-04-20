@@ -4,7 +4,7 @@ class OrderModel {
   final String variant;
   final int quantity;
   final double price;
-  final String status; // 'Completed', 'On Delivery', 'Canceled'
+  final String status;
   final String statusDescription;
   final String imageUrl;
 

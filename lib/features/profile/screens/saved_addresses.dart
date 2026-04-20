@@ -55,7 +55,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ===== ADD BUTTON =====
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -92,7 +91,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
             const SizedBox(height: 20),
 
-            // ===== DEFAULT ADDRESS TITLE =====
             const Text(
               "Default Address",
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -100,7 +98,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
             const SizedBox(height: 10),
 
-            // ===== CARD =====
             ..._addresses.map((a) => _card(a)),
           ],
         ),
@@ -108,7 +105,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     );
   }
 
-  // ===== CARD UI =====
   Widget _card(AddressModel a) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
@@ -126,7 +122,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // HEADER
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
             child: Row(
@@ -141,7 +136,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
             ),
           ),
 
-          // BODY
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -166,7 +160,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
 
           const Divider(height: 1),
 
-          // FOOTER BUTTONS
           Row(
             children: [
               Expanded(
@@ -193,7 +186,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     );
   }
 
-  // ===== BADGE =====
   Widget _badge(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -208,7 +200,6 @@ class _SavedAddressesScreenState extends State<SavedAddressesScreen> {
     );
   }
 
-  // ===== TEXT LINE =====
   Widget _line(String text) {
     return Text(text, style: const TextStyle(color: Colors.grey));
   }

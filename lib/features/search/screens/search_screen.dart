@@ -31,9 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
       badgeText: 'SALE',
       isSale: true,
       isWishlist: true,
-      thumbnailImages: [
-        'assets/images/2.jpg',
-      ],
+      thumbnailImages: ['assets/images/2.jpg'],
       rating: 4.8,
       reviewCount: 1200,
       sizes: ['M', 'L', 'XL'],
@@ -49,9 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
       badgeText: '32% off',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'assets/images/3.jpg',
-      ],
+      thumbnailImages: ['assets/images/3.jpg'],
       rating: 4.7,
       reviewCount: 3400,
       sizes: ['S', 'M', 'L'],
@@ -67,9 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
       badgeText: '',
       isSale: false,
       isWishlist: false,
-      thumbnailImages: [
-        'assets/images/1.jpg',
-      ],
+      thumbnailImages: ['assets/images/1.jpg'],
       rating: 4.5,
       reviewCount: 2600,
       sizes: ['S', 'M', 'L', 'XL'],
@@ -163,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         filled: true,
                         fillColor: isDark
                             ? AppColors.darkInputBackground
-                            : AppColors.lightInputBackground,
+                            : Colors.white,
                         contentPadding: const EdgeInsets.symmetric(vertical: 0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),

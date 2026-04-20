@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // --- DATA MOCK PRODUK POPULER ---
   final List<Product> _products = [
     Product(
       imageUrl: 'assets/images/1.jpg',
@@ -156,16 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // --- DRAWER KUSTOM ---
       drawer: const AppDrawer(),
 
-      // --- APPBAR ---
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: isDark ? Colors.white : Colors.black,
-        ), // Warna Icon Menu
+        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -203,24 +198,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      // --- BODY UTAMA ---
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 100),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Banner Promo (full width, tanpa padding)
             PromoBannerWidget(isDark: isDark),
             const SizedBox(height: 20),
 
-            // Tabs Kategori
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
               child: CategoryTabsWidget(isDark: isDark),
             ),
             const SizedBox(height: 30),
 
-            // Most Popular Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
@@ -259,7 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Grid Produk Popular
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: GridView.builder(
@@ -269,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.58, // Mengatasi Bottom Overflowed
+                  childAspectRatio: 0.58,
                 ),
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
@@ -283,7 +273,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 30),
 
-            // Trending Now Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
@@ -322,7 +311,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Trending Carousel
             TrendingCarouselWidget(products: _trendingProducts, isDark: isDark),
           ],
         ),

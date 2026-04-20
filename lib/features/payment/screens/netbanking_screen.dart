@@ -9,7 +9,6 @@ class NetbankingScreen extends StatefulWidget {
 }
 
 class _NetbankingScreenState extends State<NetbankingScreen> {
-  // Daftar Bank Semua (All Banks)
   final List<String> _allBanks = [
     "Bank Of india",
     "Bank Of Maharasthra",
@@ -35,7 +34,7 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
-        automaticallyImplyLeading: false, // Kita sembunyikan panah bawaan
+        automaticallyImplyLeading: false,
         titleSpacing: 16,
         title: Container(
           height: 40,
@@ -72,7 +71,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ===== 1. POPULAR BANKS CARD =====
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -101,7 +99,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  // Grid Logo Bank sesuai referensi gambar
                   GridView.count(
                     crossAxisCount: 3,
                     shrinkWrap: true,
@@ -110,7 +107,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
                     crossAxisSpacing: 16,
                     childAspectRatio: 1.1,
                     children: [
-                      // Row 1
                       _buildBankIcon(
                         Icons.attach_money_rounded,
                         const Color(0xFFE3F2FD),
@@ -129,7 +125,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
                         const Color(0xFFE91E63),
                         isDark,
                       ),
-                      // Row 2
                       _buildBankIcon(
                         Icons.assured_workload_rounded,
                         const Color(0xFFFFF3E0),
@@ -147,7 +142,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
                         const Color(0xFFFF6F00),
                         isDark,
                       ),
-                      // Row 3
                       _buildBankIcon(
                         Icons.manage_search_rounded,
                         const Color(0xFFE8EAF6),
@@ -167,7 +161,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
 
             const SizedBox(height: 30),
 
-            // ===== 2. ALL BANKS LIST =====
             Text(
               "All Banks",
               style: TextStyle(
@@ -178,13 +171,12 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Grid Daftar Nama Bank
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 2 Kolom
-                childAspectRatio: 4, // Rasio tinggi-lebar agar teks muat
+                crossAxisCount: 2,
+                childAspectRatio: 4,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 0,
               ),
@@ -217,7 +209,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
 
             const SizedBox(height: 40),
 
-            // ===== 3. RETURN BUTTON =====
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -251,7 +242,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
     );
   }
 
-  // Helper: Ikon bank colorful sesuai referensi gambar
   Widget _buildBankIcon(
     IconData icon,
     Color bgColor,
@@ -275,7 +265,6 @@ class _NetbankingScreenState extends State<NetbankingScreen> {
     );
   }
 
-  // Helper: Kartu "BANK TRANSFER" sesuai referensi gambar
   Widget _buildBankTransferCard(Color bgColor, Color textColor, bool isDark) {
     return Center(
       child: Container(

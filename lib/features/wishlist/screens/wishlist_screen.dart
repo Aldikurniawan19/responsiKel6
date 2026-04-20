@@ -181,7 +181,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // --- APPBAR ---
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
@@ -205,7 +204,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
         centerTitle: false,
       ),
 
-      // --- BODY (GRID PRODUK) ---
       body: GridView.builder(
         padding: const EdgeInsets.all(24.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

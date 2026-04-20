@@ -10,20 +10,19 @@ class OrderCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Menentukan warna berdasarkan status pesanan
     Color badgeColor;
     Color badgeTextColor;
 
     if (order.status == 'Completed') {
-      badgeColor = const Color(0xFFE8F5E9); // Hijau sangat muda
-      badgeTextColor = const Color(0xFF4CAF50); // Hijau
+      badgeColor = const Color(0xFFE8F5E9);
+      badgeTextColor = const Color(0xFF4CAF50);
     } else if (order.status == 'Canceled') {
-      badgeColor = const Color(0xFFFFEBEE); // Merah sangat muda
-      badgeTextColor = const Color(0xFFE53935); // Merah
+      badgeColor = const Color(0xFFFFEBEE);
+      badgeTextColor = const Color(0xFFE53935);
     } else {
       // On Delivery
-      badgeColor = const Color(0xFFF3E5F5); // Ungu sangat muda
-      badgeTextColor = const Color(0xFFAB47BC); // Ungu
+      badgeColor = const Color(0xFFF3E5F5);
+      badgeTextColor = const Color(0xFFAB47BC);
     }
 
     return Container(
@@ -45,22 +44,19 @@ class OrderCardWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // --- KOLOM KIRI (Detail Teks) ---
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Order ID
                 Text(
                   order.id,
                   style: const TextStyle(
                     color: Color(0xFF8E24AA),
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                  ), // Warna ungu ID
+                  ),
                 ),
                 const SizedBox(height: 6),
-                // Judul Produk
                 Text(
                   order.title,
                   style: TextStyle(
@@ -74,7 +70,6 @@ class OrderCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // Baris Variant, Qty, dan Harga
                 Row(
                   children: [
                     Text(
@@ -106,7 +101,6 @@ class OrderCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Baris Status Badge dan Deskripsi
                 Row(
                   children: [
                     Container(
@@ -149,7 +143,6 @@ class OrderCardWidget extends StatelessWidget {
 
           const SizedBox(width: 16),
 
-          // --- KOLOM KANAN (Gambar Produk) ---
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Image.asset(

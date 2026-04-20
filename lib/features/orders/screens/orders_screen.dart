@@ -13,7 +13,6 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  // Data Mock Order (Disamakan persis dengan gambar)
   final List<OrderModel> _allOrders = [
     OrderModel(
       id: '#12451245',
@@ -52,7 +51,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return DefaultTabController(
-      length: 4, // Jumlah Tab
+      length: 4,
       child: Scaffold(
         backgroundColor: isDark
             ? AppColors.darkBackground
@@ -90,7 +89,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
               },
             ),
           ],
-          // --- KONFIGURASI TAB BAR ---
           bottom: TabBar(
             isScrollable: true,
             labelColor: AppColors.primary,
@@ -115,10 +113,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ],
           ),
         ),
-        // --- ISI DARI SETIAP TAB ---
         body: TabBarView(
           children: [
-            _buildOrderList(_allOrders, isDark), // Tab "All"
+            _buildOrderList(_allOrders, isDark),
             _buildOrderList(
               _allOrders.where((o) => o.status == 'On Delivery').toList(),
               isDark,

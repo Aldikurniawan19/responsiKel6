@@ -9,7 +9,6 @@ class CouponsScreen extends StatefulWidget {
 }
 
 class _CouponsScreenState extends State<CouponsScreen> {
-  // Data Mock untuk Kupon (Sesuai referensi gambar)
   final List<Map<String, String>> _coupons = [
     {
       'discount': '20%',
@@ -28,10 +27,9 @@ class _CouponsScreenState extends State<CouponsScreen> {
     },
   ];
 
-  // Data Mock untuk Banner Promo Bawah
   final List<String> _promoBanners = [
-    'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600', // Gambar banner diskon
-    'https://images.unsplash.com/photo-1607082350899-7e105ca886e1?q=80&w=600', 
+    'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600',
+    'https://images.unsplash.com/photo-1607082350899-7e105ca886e1?q=80&w=600',
   ];
 
   @override
@@ -39,17 +37,26 @@ class _CouponsScreenState extends State<CouponsScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : const Color(0xFFF5F6F8), // Background sedikit abu agar kartu putih menonjol
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : const Color(0xFFF5F6F8),
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.black),
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDark ? Colors.white : Colors.black,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'My Coupons',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: isDark ? Colors.white : Colors.black,
+          ),
         ),
         centerTitle: false,
       ),
@@ -58,19 +65,20 @@ class _CouponsScreenState extends State<CouponsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- 1. LIST KUPON ---
             ..._coupons.map((coupon) => _buildCouponCard(coupon, isDark)),
-            
+
             const SizedBox(height: 30),
 
-            // --- 2. HEADER BANNER ---
             Text(
               'Discount on your sale',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black87),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black87,
+              ),
             ),
             const SizedBox(height: 16),
 
-            // --- 3. HORIZONTAL SLIDER BANNER ---
             SizedBox(
               height: 140,
               child: ListView.builder(
@@ -79,7 +87,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: const EdgeInsets.only(right: 16),
-                    width: 280, // Lebar banner
+                    width: 280,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
@@ -90,28 +98,32 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  // --- WIDGET HELPER: KARTU KUPON ---
   Widget _buildCouponCard(Map<String, String> coupon, bool isDark) {
     return Container(
-      height: 100, // Tinggi kartu diset pasti agar garis putus-putusnya konsisten
+      height: 100,
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkCardBackground : Colors.white,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: isDark ? [] : [
-          BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0, 4))
-        ],
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
       ),
       child: Row(
         children: [
-          // Bagian Kiri (Diskon)
           Expanded(
             flex: 2,
             child: Column(
@@ -119,23 +131,28 @@ class _CouponsScreenState extends State<CouponsScreen> {
               children: [
                 Text(
                   coupon['discount']!,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: isDark ? Colors.white : Colors.black87),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
                 ),
                 Text(
                   'Off',
-                  style: TextStyle(fontSize: 14, color: isDark ? AppColors.darkTextBody : Colors.black54),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDark ? AppColors.darkTextBody : Colors.black54,
+                  ),
                 ),
               ],
             ),
           ),
-          
-          // Garis Putus-putus (Dashed Line)
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: _buildDashedLine(isDark),
           ),
 
-          // Bagian Kanan (Detail)
           Expanded(
             flex: 6,
             child: Padding(
@@ -146,12 +163,19 @@ class _CouponsScreenState extends State<CouponsScreen> {
                 children: [
                   Text(
                     coupon['category']!,
-                    style: TextStyle(fontSize: 14, color: isDark ? AppColors.darkTextBody : Colors.black54),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDark ? AppColors.darkTextBody : Colors.black54,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     coupon['condition']!,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black87),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
                   ),
                 ],
               ),
@@ -162,12 +186,11 @@ class _CouponsScreenState extends State<CouponsScreen> {
     );
   }
 
-  // --- WIDGET HELPER: GARIS PUTUS-PUTUS ---
   Widget _buildDashedLine(bool isDark) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
-        12, // Jumlah titik garis
+        12,
         (index) => Container(
           width: 1.5,
           height: 4,

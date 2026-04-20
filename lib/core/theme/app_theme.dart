@@ -7,7 +7,6 @@ class AppTheme {
     ThemeMode.system,
   );
 
-  // Helper: base TextTheme dengan Plus Jakarta Sans
   static TextTheme _buildTextTheme(TextTheme base) {
     return GoogleFonts.plusJakartaSansTextTheme(base);
   }
@@ -46,9 +45,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          textStyle: GoogleFonts.plusJakartaSans(
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -60,9 +57,7 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           fontSize: 12,
         ),
-        unselectedLabelStyle: GoogleFonts.plusJakartaSans(
-          fontSize: 12,
-        ),
+        unselectedLabelStyle: GoogleFonts.plusJakartaSans(fontSize: 12),
       ),
     );
   }
@@ -101,9 +96,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          textStyle: GoogleFonts.plusJakartaSans(
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -115,9 +108,7 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           fontSize: 12,
         ),
-        unselectedLabelStyle: GoogleFonts.plusJakartaSans(
-          fontSize: 12,
-        ),
+        unselectedLabelStyle: GoogleFonts.plusJakartaSans(fontSize: 12),
       ),
     );
   }

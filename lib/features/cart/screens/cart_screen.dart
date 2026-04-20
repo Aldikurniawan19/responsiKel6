@@ -13,13 +13,11 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  // --- STATE UNTUK KUPON ---
   final TextEditingController _couponController = TextEditingController();
   double _discountAmount = 0.0;
   bool _isCouponApplied = false;
   String _appliedCouponCode = '';
 
-  // Data Mock Keranjang Belanja
   final List<CartItem> _cartItems = [
     CartItem(
       quantity: 1,
@@ -89,7 +87,6 @@ class _CartScreenState extends State<CartScreen> {
     super.dispose();
   }
 
-  // --- LOGIKA PERHITUNGAN HARGA ---
   double get _subtotal {
     return _cartItems.fold(
       0,
@@ -97,17 +94,15 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  double get _tax => _subtotal * 0.005; // Pajak 0.5% (Sesuai gambar)
-  double get _deliveryFee => _subtotal * 0.008; // Ongkir 0.8% (Sesuai gambar)
+  double get _tax => _subtotal * 0.005;
+  double get _deliveryFee => _subtotal * 0.008;
 
   double get _totalPrice {
     double total = _subtotal + _tax + _deliveryFee - _discountAmount;
-    return total > 0 ? total : 0; // Memastikan total tidak minus
+    return total > 0 ? total : 0;
   }
 
-  // --- FUNGSI CEK KUPON ---
   void _applyCoupon() {
-    // Hilangkan keyboard saat tombol di-klik
     FocusScope.of(context).unfocus();
 
     final code = _couponController.text.trim().toUpperCase();
@@ -118,12 +113,12 @@ class _CartScreenState extends State<CartScreen> {
       if (code == 'PROMO20') {
         _isCouponApplied = true;
         _appliedCouponCode = code;
-        _discountAmount = _subtotal * 0.20; // Diskon 20%
+        _discountAmount = _subtotal * 0.20;
         _showSnackBar('Coupon Applied! You got 20% off.', Colors.green);
       } else if (code == 'HEMAT50') {
         _isCouponApplied = true;
         _appliedCouponCode = code;
-        _discountAmount = 50.0; // Potongan langsung $50
+        _discountAmount = 50.0;
         _showSnackBar('Coupon Applied! You got \$50 off.', Colors.green);
       } else {
         _isCouponApplied = false;
@@ -163,7 +158,7 @@ class _CartScreenState extends State<CartScreen> {
           ? AppColors.darkBackground
           : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
+        backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -198,10 +193,9 @@ class _CartScreenState extends State<CartScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // --- 1. DELIVERY HEADER ---
                   Container(
                     color: isDark
-                        ? AppColors.darkCardBackground
+                        ? AppColors.darkBackground
                         : const Color(0xFFF0FDF4),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
@@ -241,7 +235,6 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
 
-                  // --- 2. DAFTAR ITEM KERANJANG ---
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
@@ -252,7 +245,6 @@ class _CartScreenState extends State<CartScreen> {
                               isDark: isDark,
                               onQuantityChanged: () {
                                 setState(() {
-                                  // Update nominal diskon jika kupon persen sedang aktif dan kuantitas barang berubah
                                   if (_isCouponApplied &&
                                       _appliedCouponCode == 'PROMO20') {
                                     _discountAmount = _subtotal * 0.20;
@@ -265,7 +257,6 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
 
-                  // --- 3. COUPON SECTION (Kini Berupa Form Input) ---
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
@@ -282,11 +273,9 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         const SizedBox(height: 12),
 
-                        // TextField untuk Kupon
                         TextField(
                           controller: _couponController,
-                          enabled:
-                              !_isCouponApplied, // Kunci input jika kupon sudah terpasang
+                          enabled: !_isCouponApplied,
                           style: TextStyle(
                             color: isDark ? Colors.white : Colors.black87,
                             fontWeight: FontWeight.w500,
@@ -305,7 +294,6 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             suffixIcon: _isCouponApplied
                                 ? IconButton(
-                                    // Tombol hapus kupon
                                     icon: const Icon(
                                       Icons.close,
                                       color: Colors.red,
@@ -313,7 +301,6 @@ class _CartScreenState extends State<CartScreen> {
                                     onPressed: _removeCoupon,
                                   )
                                 : IconButton(
-                                    // Tombol terapkan kupon
                                     icon: const Icon(
                                       Icons.chevron_right,
                                       color: AppColors.primary,
@@ -356,7 +343,6 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
 
-                  // --- 4. PRICE DETAILS ---
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
@@ -379,7 +365,6 @@ class _CartScreenState extends State<CartScreen> {
                           isDark,
                         ),
 
-                        // Menampilkan baris diskon jika kupon aktif
                         if (_isCouponApplied) ...[
                           const SizedBox(height: 16),
                           Row(
@@ -438,7 +423,6 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
 
-          // --- 5. BOTTOM CHECKOUT BAR ---
           Container(
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(
@@ -486,9 +470,7 @@ class _CartScreenState extends State<CartScreen> {
                         Navigator.push(
                           context,
                           LoadingPageRoute(
-                            page: AddAddressScreen(
-                              onSave: (_) {},
-                            ),
+                            page: AddAddressScreen(onSave: (_) {}),
                           ),
                         );
                       },

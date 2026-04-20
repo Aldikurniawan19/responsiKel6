@@ -60,7 +60,6 @@ class TrackingOrderScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ===== 1. PRODUCT CARD =====
             Container(
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(12),
@@ -135,7 +134,6 @@ class TrackingOrderScreen extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            // Tombol Qty (Sesuai referensi gambar)
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -195,14 +193,13 @@ class TrackingOrderScreen extends StatelessWidget {
               ),
             ),
 
-            // ===== 2. MAP AREA =====
             SizedBox(
               height: 220,
               child: Stack(
                 children: [
                   FlutterMap(
                     options: MapOptions(
-                      initialCenter: LatLng(-6.2088, 106.8456), // Jakarta
+                      initialCenter: LatLng(-6.2088, 106.8456),
                       initialZoom: 14.0,
                     ),
                     children: [
@@ -227,7 +224,6 @@ class TrackingOrderScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Tombol "Open in Maps"
                   Positioned(
                     top: 16,
                     left: 16,
@@ -271,7 +267,6 @@ class TrackingOrderScreen extends StatelessWidget {
               ),
             ),
 
-            // ===== 3. ORDER STATUS TIMELINE =====
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
@@ -287,16 +282,14 @@ class TrackingOrderScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
 
-                  // STEP 1: On Delivery
                   _buildTimelineStep(
                     title: "On Delivery",
                     time: "Monday June 20th, 2020 12:25 AM",
                     isLast: false,
                     isDark: isDark,
-                    content: _buildCourierCard(isDark), // Memasukkan info kurir
+                    content: _buildCourierCard(isDark),
                   ),
 
-                  // STEP 2: North Gateway
                   _buildTimelineStep(
                     title: "North Gateway",
                     time: "Monday June 20th, 2020 12:25 AM",
@@ -315,11 +308,10 @@ class TrackingOrderScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // STEP 3: Order Created
                   _buildTimelineStep(
                     title: "Order Created",
                     time: "Monday June 20th, 2020 12:25 AM",
-                    isLast: true, // true agar garis vertikal berhenti di sini
+                    isLast: true,
                     isDark: isDark,
                   ),
                 ],
@@ -331,11 +323,6 @@ class TrackingOrderScreen extends StatelessWidget {
     );
   }
 
-  // =========================================================================
-  // HELPER WIDGETS
-  // =========================================================================
-
-  // Helper Widget: Timeline Step
   Widget _buildTimelineStep({
     required String title,
     required String time,
@@ -344,11 +331,9 @@ class TrackingOrderScreen extends StatelessWidget {
     Widget? content,
   }) {
     return IntrinsicHeight(
-      // Penting: Agar garis vertikal memanjang mengikuti konten di kanan
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Kolom Garis dan Titik
           Column(
             children: [
               Container(
@@ -362,15 +347,12 @@ class TrackingOrderScreen extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: 2,
-                  color: isLast
-                      ? Colors.transparent
-                      : AppColors.primary, // Jika item terakhir, garis hilang
+                  color: isLast ? Colors.transparent : AppColors.primary,
                 ),
               ),
             ],
           ),
           const SizedBox(width: 16),
-          // Kolom Konten (Judul, Waktu, Detail)
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -392,7 +374,7 @@ class TrackingOrderScreen extends StatelessWidget {
                   ),
                 ),
                 if (content != null) content,
-                const SizedBox(height: 32), // Jarak ke step berikutnya
+                const SizedBox(height: 32),
               ],
             ),
           ),
@@ -401,7 +383,6 @@ class TrackingOrderScreen extends StatelessWidget {
     );
   }
 
-  // Helper Widget: Kartu Kurir (Sesuai Gambar)
   Widget _buildCourierCard(bool isDark) {
     return Container(
       margin: const EdgeInsets.only(top: 16),

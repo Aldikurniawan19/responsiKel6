@@ -2,30 +2,22 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
-/// Custom page route dengan animasi loading screen overlay.
-///
-/// Alur animasi:
-/// 1. Overlay gelap muncul dari bawah ke atas (slide up)
-/// 2. Spinner/logo berputar di tengah overlay
-/// 3. Overlay slide ke atas keluar layar, reveal halaman baru di bawahnya
-///
-/// Durasi total ≈ 900ms, terasa premium tapi tidak lambat.
 class LoadingPageRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
 
   LoadingPageRoute({required this.page})
-      : super(
-          transitionDuration: const Duration(milliseconds: 900),
-          reverseTransitionDuration: const Duration(milliseconds: 600),
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return _LoadingTransition(
-              animation: animation,
-              secondaryAnimation: secondaryAnimation,
-              child: child,
-            );
-          },
-        );
+    : super(
+        transitionDuration: const Duration(milliseconds: 900),
+        reverseTransitionDuration: const Duration(milliseconds: 600),
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return _LoadingTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          );
+        },
+      );
 }
 
 class _LoadingTransition extends StatelessWidget {
@@ -43,13 +35,11 @@ class _LoadingTransition extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // --- Fase 1 (0.0 → 0.45): Overlay masuk dari bawah ---
     final overlayEnter = CurvedAnimation(
       parent: animation,
       curve: const Interval(0.0, 0.45, curve: Curves.easeOutCubic),
     );
 
-    // --- Fase 2 (0.35 → 0.65): Loading spinner muncul & spin ---
     final spinnerOpacity = CurvedAnimation(
       parent: animation,
       curve: const Interval(0.25, 0.55, curve: Curves.easeIn),
@@ -59,13 +49,11 @@ class _LoadingTransition extends StatelessWidget {
       curve: const Interval(0.55, 0.70, curve: Curves.easeOut),
     );
 
-    // --- Fase 3 (0.55 → 1.0): Overlay keluar ke atas, reveal page ---
     final overlayExit = CurvedAnimation(
       parent: animation,
       curve: const Interval(0.55, 1.0, curve: Curves.easeInCubic),
     );
 
-    // --- Fade in halaman baru ---
     final pageFade = CurvedAnimation(
       parent: animation,
       curve: const Interval(0.65, 1.0, curve: Curves.easeOut),
@@ -77,7 +65,6 @@ class _LoadingTransition extends StatelessWidget {
       ),
     );
 
-    // --- Secondary animation (halaman ini di-push keluar oleh halaman baru) ---
     final secondaryFade = Tween<double>(begin: 1.0, end: 0.92).animate(
       CurvedAnimation(parent: secondaryAnimation, curve: Curves.easeInOut),
     );
@@ -88,20 +75,15 @@ class _LoadingTransition extends StatelessWidget {
 
     return Stack(
       children: [
-        // Halaman baru (di bawah overlay)
         FadeTransition(
           opacity: pageFade,
           child: ScaleTransition(
             scale: pageScale,
             alignment: Alignment.center,
-            child: FadeTransition(
-              opacity: secondaryFade,
-              child: child,
-            ),
+            child: FadeTransition(opacity: secondaryFade, child: child),
           ),
         ),
 
-        // Overlay loading screen
         if (animation.value < 1.0)
           _buildOverlay(
             overlayEnter: overlayEnter,
@@ -130,17 +112,13 @@ class _LoadingTransition extends StatelessWidget {
       builder: (context, _) {
         final screenHeight = MediaQuery.of(context).size.height;
 
-        // Overlay position: masuk dari bawah, lalu keluar ke atas
         double overlayY;
         if (animation.value <= 0.55) {
-          // Masuk dari bawah
           overlayY = screenHeight * (1.0 - overlayEnter.value);
         } else {
-          // Keluar ke atas
           overlayY = -screenHeight * overlayExit.value;
         }
 
-        // Spinner opacity: fade in lalu fade out
         final spinnerAlpha = animation.value <= 0.55
             ? spinnerOpacity.value
             : (1.0 - spinnerFadeOut.value).clamp(0.0, 1.0);
@@ -168,19 +146,14 @@ class _LoadingTransition extends StatelessWidget {
   }
 }
 
-/// Widget spinner kustom dengan animasi lingkaran + ikon brand
 class _LoadingSpinner extends StatelessWidget {
   final double progress;
   final bool isDark;
 
-  const _LoadingSpinner({
-    required this.progress,
-    required this.isDark,
-  });
+  const _LoadingSpinner({required this.progress, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
-    // Spin angle berdasarkan progress (beberapa putaran)
     final spinAngle = progress * 4 * math.pi;
     // Pulse scale
     final pulse = 1.0 + 0.08 * math.sin(progress * 6 * math.pi);
@@ -194,7 +167,6 @@ class _LoadingSpinner extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Outer spinning ring
               Transform.rotate(
                 angle: spinAngle,
                 child: Container(
@@ -216,7 +188,6 @@ class _LoadingSpinner extends StatelessWidget {
                 ),
               ),
 
-              // Inner pulsing icon
               Transform.scale(
                 scale: pulse,
                 child: Container(
@@ -225,10 +196,7 @@ class _LoadingSpinner extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
-                      colors: [
-                        AppColors.primary,
-                        AppColors.accent,
-                      ],
+                      colors: [AppColors.primary, AppColors.accent],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -253,7 +221,6 @@ class _LoadingSpinner extends StatelessWidget {
 
         const SizedBox(height: 20),
 
-        // Animated dots
         _buildAnimatedDots(progress),
       ],
     );
@@ -296,7 +263,6 @@ class _LoadingSpinner extends StatelessWidget {
   }
 }
 
-/// Painter untuk arc spinner
 class _ArcPainter extends CustomPainter {
   final double progress;
   final Color color;
@@ -312,7 +278,6 @@ class _ArcPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    // Arc length bervariasi
     final sweep = 0.8 + 0.6 * math.sin(progress * 2 * math.pi);
     canvas.drawArc(rect, 0, sweep * math.pi, false, paint);
   }

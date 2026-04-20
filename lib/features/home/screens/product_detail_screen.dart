@@ -71,7 +71,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar Utama (Cek apakah list kosong untuk mencegah error)
             if (widget.product.thumbnailImages.isNotEmpty)
               Image.asset(
                 widget.product.thumbnailImages[_currentThumbnailIndex],
@@ -81,7 +80,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             const SizedBox(height: 16),
 
-            // Thumbnail Slider
             if (widget.product.thumbnailImages.isNotEmpty)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -119,7 +117,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             const SizedBox(height: 30),
 
-            // Area Detail Teks
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
@@ -163,7 +160,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             size: 18,
                           ),
                           const SizedBox(width: 8),
-                          // --- PERBAIKAN NULL SAFETY RATING ---
                           Text(
                             widget.product.rating?.toString() ?? '0.0',
                             style: TextStyle(
@@ -173,7 +169,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          // --- PERBAIKAN NULL SAFETY REVIEW COUNT ---
                           Text(
                             '(${((widget.product.reviewCount ?? 0) / 1000).toStringAsFixed(1)}k review)',
                             style: TextStyle(

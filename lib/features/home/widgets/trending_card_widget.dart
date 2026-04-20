@@ -91,7 +91,6 @@ class TrendingCardWidget extends StatelessWidget {
           ),
         ),
 
-        // --- DETAIL TEKS ---
         const SizedBox(height: 8),
         Text(
           product.category,
@@ -113,7 +112,6 @@ class TrendingCardWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 6),
-        // Harga
         Row(
           children: [
             Text(

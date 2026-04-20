@@ -65,7 +65,6 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Login Button
               SizedBox(
                 width: double.infinity,
                 height: 54,
@@ -97,8 +96,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Forgot Password Row
-                Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Forgot password?"),
@@ -118,11 +116,10 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
 
-              // Register Now Section
               Text(
                 'Don\'t have an account?',
                 style: TextStyle(

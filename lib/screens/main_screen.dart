@@ -8,16 +8,11 @@ import '../features/wishlist/screens/wishlist_screen.dart';
 import '../features/profile/screens/profile_screen.dart';
 import '../features/cart/screens/cart_screen.dart';
 
-/// Shell utama aplikasi.
-/// Bottom navigation bar dan FAB hexagon hanya di-build SATU KALI di sini.
-/// Body berupa IndexedStack sehingga perpindahan tab tidak rebuild seluruh halaman
-/// dan animasi navigasi tidak terlihat seperti reload satu halaman.
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  /// GlobalKey agar child screen bisa mengakses state MainScreen
-  /// dan berpindah tab secara programatis.
-  static final GlobalKey<MainScreenState> mainKey = GlobalKey<MainScreenState>();
+  static final GlobalKey<MainScreenState> mainKey =
+      GlobalKey<MainScreenState>();
 
   @override
   State<MainScreen> createState() => MainScreenState();
@@ -26,7 +21,6 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  /// Pindah ke tab tertentu berdasarkan index (0=Home, 1=Categories, 2=Wishlist, 3=Profile)
   void switchTab(int index) {
     if (_currentIndex != index) {
       setState(() {
@@ -35,7 +29,6 @@ class MainScreenState extends State<MainScreen> {
     }
   }
 
-  // Daftar halaman tab — dipertahankan di memori agar state tidak hilang
   final List<Widget> _pages = const [
     HomeScreen(),
     CategoriesScreen(),
@@ -48,13 +41,8 @@ class MainScreenState extends State<MainScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // Body menggunakan IndexedStack agar halaman yang tidak aktif tetap hidup
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
 
-      // --- FAB HEXAGON CART (PERSISTEN) ---
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Transform.translate(
         offset: const Offset(0, 16),
@@ -85,7 +73,6 @@ class MainScreenState extends State<MainScreen> {
         ),
       ),
 
-      // --- BOTTOM NAVIGATION BAR (PERSISTEN) ---
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: isDark ? AppColors.darkCardBackground : Colors.white,
@@ -118,7 +105,7 @@ class MainScreenState extends State<MainScreen> {
                   1,
                   isDark,
                 ),
-                const SizedBox(width: 56), // Ruang tengah untuk FAB
+                const SizedBox(width: 56),
                 _buildNavItem(
                   Icons.favorite_border,
                   Icons.favorite,
@@ -141,7 +128,6 @@ class MainScreenState extends State<MainScreen> {
     );
   }
 
-  // Helper widget untuk item nav bawah dengan animasi halus
   Widget _buildNavItem(
     IconData outlineIcon,
     IconData filledIcon,
@@ -165,16 +151,16 @@ class MainScreenState extends State<MainScreen> {
           children: [
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 250),
-              transitionBuilder: (child, animation) => ScaleTransition(
-                scale: animation,
-                child: child,
-              ),
+              transitionBuilder: (child, animation) =>
+                  ScaleTransition(scale: animation, child: child),
               child: Icon(
                 isActive ? filledIcon : outlineIcon,
                 key: ValueKey<bool>(isActive),
                 color: isActive
                     ? AppColors.primary
-                    : (isDark ? AppColors.darkTextBody : AppColors.lightTextBody),
+                    : (isDark
+                          ? AppColors.darkTextBody
+                          : AppColors.lightTextBody),
                 size: 24,
               ),
             ),
@@ -184,7 +170,9 @@ class MainScreenState extends State<MainScreen> {
               style: TextStyle(
                 color: isActive
                     ? AppColors.primary
-                    : (isDark ? AppColors.darkTextBody : AppColors.lightTextBody),
+                    : (isDark
+                          ? AppColors.darkTextBody
+                          : AppColors.lightTextBody),
                 fontSize: 10,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
               ),

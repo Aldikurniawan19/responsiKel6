@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'otp_screen.dart';
-import '../../../core/theme/app_colors.dart'; // Pastikan import ini sesuai dengan lokasi file Anda
+import '../../../core/theme/app_colors.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -20,11 +20,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Mengecek mode layar perangkat
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // Background yang beradaptasi dengan mode
       backgroundColor: isDark
           ? AppColors.darkBackground
           : AppColors.lightBackground,
@@ -35,7 +33,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             children: [
               const SizedBox(height: 30),
 
-              // LOGO
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -64,7 +61,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 "Reset password",
                 style: TextStyle(
                   fontSize: 24,
-                  color: isDark ? Colors.white : Colors.black, // Teks dinamis
+                  color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -79,22 +76,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
               const SizedBox(height: 30),
 
-              // EMAIL
               TextField(
                 controller: emailController,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                ), // Warna ketikan
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
                 decoration: InputDecoration(
                   hintText: "Email",
                   hintStyle: TextStyle(
                     color: isDark ? Colors.white38 : Colors.black38,
-                  ), // Warna hint
+                  ),
                   prefixIcon: const Icon(Icons.email, color: AppColors.primary),
                   filled: true,
                   fillColor: isDark
                       ? AppColors.darkInputBackground
-                      : Colors.white, // Latar input dinamis
+                      : Colors.white,
                   contentPadding: const EdgeInsets.symmetric(vertical: 16),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -111,7 +105,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
               const Spacer(),
 
-              // BUTTON
               SizedBox(
                 width: double.infinity,
                 height: 55,
@@ -136,7 +129,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                    ), // Teks tombol tetap putih
+                    ),
                   ),
                 ),
               ),

@@ -16,7 +16,7 @@ class SizeSelectorWidget extends StatefulWidget {
 }
 
 class _SizeSelectorWidgetState extends State<SizeSelectorWidget> {
-  int _selectedIndex = 0; // Default terpilih index 0 (S)
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +36,16 @@ class _SizeSelectorWidgetState extends State<SizeSelectorWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               decoration: BoxDecoration(
                 color: _selectedIndex == index
-                    ? AppColors
-                          .primary // Warna hijau jika terpilih
+                    ? AppColors.primary
                     : Colors.transparent,
                 border: _selectedIndex == index
-                    ? null // Hilangkan border jika terpilih
+                    ? null
                     : Border.all(
                         color: widget.isDark
                             ? AppColors.darkInputBorder
                             : AppColors.lightInputBorder,
-                      ), // Warna border mode adaptif
-                borderRadius: BorderRadius.circular(4), // Kotak sesuai desain
+                      ),
+                borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 widget.sizes[index],
@@ -54,11 +53,8 @@ class _SizeSelectorWidgetState extends State<SizeSelectorWidget> {
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: _selectedIndex == index
-                      ? Colors
-                            .white // Teks putih jika terpilih
-                      : (widget.isDark
-                            ? Colors.white
-                            : Colors.black), // Teks mode adaptif
+                      ? Colors.white
+                      : (widget.isDark ? Colors.white : Colors.black),
                 ),
               ),
             ),

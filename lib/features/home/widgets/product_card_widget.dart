@@ -62,9 +62,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
       onTap: () {
         Navigator.push(
           context,
-          LoadingPageRoute(
-            page: ProductDetailScreen(product: widget.product),
-          ),
+          LoadingPageRoute(page: ProductDetailScreen(product: widget.product)),
         );
       },
       child: Container(
@@ -86,12 +84,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Gambar + Badge + Heart ──
             AspectRatio(
               aspectRatio: 1 / 1,
               child: Stack(
                 children: [
-                  // Gambar produk
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
@@ -100,7 +96,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                     child: _buildImage(widget.product.imageUrl),
                   ),
 
-                  // Badge — menempel pas di sudut kiri atas
                   if (widget.product.badgeText.isNotEmpty)
                     Positioned(
                       top: 0,
@@ -131,7 +126,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                       ),
                     ),
 
-                  // Heart — kanan atas
                   Positioned(
                     top: 8,
                     right: 8,
@@ -171,7 +165,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
               ),
             ),
 
-            // ── Info Produk ──
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
@@ -207,7 +200,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
 
                     const SizedBox(height: 6),
 
-                    // Harga
                     Row(
                       children: [
                         Text(

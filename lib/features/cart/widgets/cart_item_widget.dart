@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/models/product_model.dart';
 
-// Model khusus untuk item di keranjang
 class CartItem {
   final Product product;
   int quantity;
@@ -48,7 +47,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar Produk
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: widget.cartItem.product.imageUrl.startsWith('assets/')
@@ -66,7 +64,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   ),
           ),
           const SizedBox(width: 16),
-          // Detail Produk
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +93,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Harga
                     Row(
                       children: [
                         Text(
@@ -120,7 +116,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                         ),
                       ],
                     ),
-                    // Tombol Quantity (+ / -)
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(

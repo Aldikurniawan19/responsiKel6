@@ -4,13 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../core/theme/app_colors.dart';
 import 'main_screen.dart';
 
-/// Splash screen kustom dengan animasi multi-fase:
-/// 1. Background gradient morph
-/// 2. Logo muncul dengan scale + rotation
-/// 3. Glowing ring pulse
-/// 4. Animated loading indicator (dots)
-/// 5. Teks brand muncul dengan typing effect
-/// 6. Transisi halus ke MainScreen
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -20,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  // --- Animation Controllers ---
   late final AnimationController _logoController;
   late final AnimationController _pulseController;
   late final AnimationController _dotsController;
@@ -29,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _particleController;
   late final AnimationController _shimmerController;
 
-  // --- Animations ---
   late final Animation<double> _logoScale;
   late final Animation<double> _logoRotation;
   late final Animation<double> _logoOpacity;
@@ -40,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
   late final Animation<double> _exitOpacity;
   late final Animation<double> _exitScale;
 
-  // Particle list for background
   late final List<_Particle> _particles;
 
   @override
@@ -65,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _initAnimations() {
-    // 1) Logo: scale up from 0 + slight rotation, ~800ms
     _logoController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -84,7 +73,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // 2) Pulse ring
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
@@ -98,13 +86,11 @@ class _SplashScreenState extends State<SplashScreen>
       end: 0.0,
     ).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeOut));
 
-    // 3) Loading dots
     _dotsController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     );
 
-    // 4) Text fade-in + slide up
     _textController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -118,7 +104,6 @@ class _SplashScreenState extends State<SplashScreen>
           CurvedAnimation(parent: _textController, curve: Curves.easeOutCubic),
         );
 
-    // 5) Exit transition
     _exitController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -130,13 +115,11 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _exitController, curve: Curves.easeInQuart),
     );
 
-    // 6) Particle controller — continuous
     _particleController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 4),
     )..repeat();
 
-    // 7) Shimmer controller — continuous
     _shimmerController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
@@ -144,30 +127,23 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _startAnimationSequence() async {
-    // Stage 1: Logo appears
     await Future.delayed(const Duration(milliseconds: 300));
     _logoController.forward();
 
-    // Stage 2: Pulse ring starts repeating
     await Future.delayed(const Duration(milliseconds: 500));
     _pulseController.repeat();
 
-    // Stage 3: Text slides in
     await Future.delayed(const Duration(milliseconds: 400));
     _textController.forward();
 
-    // Stage 4: Loading dots start
     await Future.delayed(const Duration(milliseconds: 200));
     _dotsController.repeat();
 
-    // Wait for "loading"
     await Future.delayed(const Duration(milliseconds: 2000));
 
-    // Stage 5: Exit — everything fades out + scale up
     _exitController.forward();
     await Future.delayed(const Duration(milliseconds: 600));
 
-    // Navigate
     if (mounted) {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
@@ -221,7 +197,6 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           child: Stack(
             children: [
-              // Floating particles
               AnimatedBuilder(
                 animation: _particleController,
                 builder: (context, _) {
@@ -236,27 +211,22 @@ class _SplashScreenState extends State<SplashScreen>
                 },
               ),
 
-              // Main content
               Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Pulse ring behind logo
                     _buildPulseRing(isDark),
 
                     const SizedBox(height: 40),
 
-                    // Brand text
                     _buildBrandText(isDark),
 
                     const SizedBox(height: 12),
 
-                    // Tagline
                     _buildTagline(isDark),
 
                     const SizedBox(height: 48),
 
-                    // Loading indicator
                     _buildLoadingDots(isDark),
                   ],
                 ),
@@ -275,7 +245,6 @@ class _SplashScreenState extends State<SplashScreen>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Outer pulse ring
           AnimatedBuilder(
             animation: _pulseController,
             builder: (context, _) {
@@ -298,7 +267,6 @@ class _SplashScreenState extends State<SplashScreen>
             },
           ),
 
-          // Second pulse ring (delayed)
           AnimatedBuilder(
             animation: _pulseController,
             builder: (context, _) {
@@ -322,7 +290,6 @@ class _SplashScreenState extends State<SplashScreen>
             },
           ),
 
-          // Shimmer circle
           AnimatedBuilder(
             animation: _shimmerController,
             builder: (context, child) {
@@ -362,7 +329,6 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
 
-          // Logo icon
           AnimatedBuilder(
             animation: _logoController,
             builder: (context, child) {
@@ -451,10 +417,8 @@ class _SplashScreenState extends State<SplashScreen>
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(4, (i) {
-            // Stagger each dot's animation
             final delay = i * 0.2;
             final t = (_dotsController.value - delay).clamp(0.0, 1.0);
-            // Bounce curve
             final bounce = math.sin(t * math.pi);
             final dotColor = Color.lerp(
               AppColors.primary.withOpacity(0.3),
@@ -490,7 +454,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// --- Particle model ---
 class _Particle {
   final double x;
   final double y;
@@ -507,7 +470,6 @@ class _Particle {
   });
 }
 
-// --- Particle painter ---
 class _ParticlePainter extends CustomPainter {
   final List<_Particle> particles;
   final double progress;

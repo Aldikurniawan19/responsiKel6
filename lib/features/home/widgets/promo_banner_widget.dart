@@ -49,8 +49,8 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       tag: '#SPRING COLLECTION',
       offer: '50% Off',
       description: 'Explore New Styles',
-      imageOnRight: true, // Gambar di kanan untuk slide kedua
-      backgroundColor: const Color(0xFFFFF8E7), // Cream color
+      imageOnRight: true,
+      backgroundColor: const Color(0xFFFFF8E7),
     ),
     BannerContent(
       imageUrl: 'assets/images/3b.png',
@@ -68,7 +68,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       if (_currentBanner < _banners.length - 1) {
         _currentBanner++;
       } else {
-        _currentBanner = 0; // Kembali ke awal
+        _currentBanner = 0;
       }
 
       if (_bannerController.hasClients) {
@@ -93,9 +93,7 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
       _currentBanner = index;
     });
 
-    // Jika sudah di slide terakhir (manual swipe), kembali ke awal setelah delay
     if (index == _banners.length - 1) {
-      // Reset timer agar tidak bentrok
       _timer?.cancel();
       _timer = Timer(const Duration(seconds: 4), () {
         if (_bannerController.hasClients) {
@@ -105,7 +103,6 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             curve: Curves.easeInOut,
           );
         }
-        // Restart periodic timer
         _startAutoSlide();
       });
     }
@@ -150,7 +147,6 @@ class _PromoBannerWidgetState extends State<PromoBannerWidget> {
             },
           ),
 
-          // Dot indicator di kanan
           Positioned(
             right: 16,
             top: 0,

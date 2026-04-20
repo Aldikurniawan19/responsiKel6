@@ -24,11 +24,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Mengecek apakah perangkat sedang dalam mode gelap
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      // Background yang beradaptasi dengan mode
       backgroundColor: isDark
           ? AppColors.darkBackground
           : AppColors.lightBackground,
@@ -39,7 +37,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             children: [
               const SizedBox(height: 30),
 
-              // LOGO
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -53,9 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     "W3Cart",
                     style: TextStyle(
                       fontSize: 20,
-                      color: isDark
-                          ? Colors.white
-                          : Colors.black, // Teks dinamis
+                      color: isDark ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -68,7 +63,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 "Reset Your Password",
                 style: TextStyle(
                   fontSize: 24,
-                  color: isDark ? Colors.white : Colors.black, // Teks dinamis
+                  color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -83,7 +78,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
               const SizedBox(height: 30),
 
-              // NEW PASSWORD
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -98,9 +92,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               TextField(
                 controller: passwordController,
                 obscureText: isHidden1,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                ), // Warna input ketikan
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
                 decoration: InputDecoration(
                   hintText: "Type Password Here",
                   hintStyle: TextStyle(
@@ -136,7 +128,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
               const SizedBox(height: 20),
 
-              // CONFIRM PASSWORD
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -151,9 +142,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               TextField(
                 controller: confirmController,
                 obscureText: isHidden2,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                ), // Warna input ketikan
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
                 decoration: InputDecoration(
                   hintText: "Type Password Here",
                   hintStyle: TextStyle(
@@ -189,7 +178,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
               const Spacer(),
 
-              // BUTTON
               SizedBox(
                 width: double.infinity,
                 height: 55,

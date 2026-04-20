@@ -13,13 +13,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     text: '0123456789',
   );
   final TextEditingController _fullNameController = TextEditingController(
-    text: 'John Doe',
+    text: 'Paijo',
   );
   final TextEditingController _emailController = TextEditingController(
     text: 'Example@gmail.com',
   );
   final TextEditingController _locationController = TextEditingController(
-    text: 'LH-12, East Wally USA',
+    text: 'Mlati, Sleman, Daerah Istimewa Yogyakarta',
   );
 
   @override
@@ -40,7 +40,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ? AppColors.darkBackground
           : const Color(0xFFF2F2F2),
 
-      // --- APPBAR ---
       appBar: AppBar(
         backgroundColor: isDark ? AppColors.darkCardBackground : Colors.white,
         elevation: 0,
@@ -62,7 +61,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: false,
       ),
 
-      // --- BODY ---
       body: Column(
         children: [
           Expanded(
@@ -71,7 +69,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Mobile Number Field
                   _buildLabel('Mobile Number', isDark),
                   const SizedBox(height: 8),
                   _buildTextField(
@@ -82,7 +79,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Full Name Field
                   _buildLabel('Full Name', isDark),
                   const SizedBox(height: 8),
                   _buildTextField(
@@ -93,7 +89,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Email Field
                   _buildLabel('Email', isDark),
                   const SizedBox(height: 8),
                   _buildTextField(
@@ -104,7 +99,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Location Field
                   _buildLabel('Location', isDark),
                   const SizedBox(height: 8),
                   _buildTextField(
@@ -118,7 +112,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
           ),
 
-          // --- SAVE BUTTON ---
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
@@ -147,11 +140,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _onSave() {
-    // TODO: Implement save logic (e.g., call API / update state)
     Navigator.pop(context);
   }
 
-  // --- HELPER: Label ---
   Widget _buildLabel(String text, bool isDark) {
     return Text(
       text,
@@ -163,7 +154,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // --- HELPER: TextField ---
   Widget _buildTextField({
     required TextEditingController controller,
     required String hintText,
